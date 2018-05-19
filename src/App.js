@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Home from './modules/home/home';
-import PostForm from './modules/post-form/post-form';
 import { Route } from 'react-router-dom';
+import PostForm from './modules/post-new-edit/post-new-edit';
+import Post from './modules/post/post';
 
 class App extends Component {
   render() {
@@ -11,7 +12,10 @@ class App extends Component {
           <Home />
         )} />
         <Route exact path="/postForm" render={() => (
-          <PostForm />
+          <PostForm/>
+        )} />
+        <Route exact path="/post" render={() => (
+          <Post/>
         )} />
       </div>
     );

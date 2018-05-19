@@ -1,25 +1,18 @@
 
 form {
-  background-color: #f0fbfa;
-  margin: 5rem 1rem;
+  margin: 5rem 1rem 2rem;
   display: block;
 }
 
-label, button {
+label {
   margin: 1rem;
 }
 
-input {
-  margin: 1rem 1rem;
-  display: block;
-}
-
-textarea {
-  margin: 1rem 1rem;
-  display: block;
-}
-
-select {
+input,
+textarea,
+select,
+button {
+  background-color: #f0fbfa;
   margin: 1rem 1rem;
   display: block;
 }

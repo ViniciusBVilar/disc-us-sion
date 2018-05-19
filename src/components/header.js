@@ -5,12 +5,14 @@ import '../styles/header.css';
 class Header extends React.Component {
 
   render() {
+    const title = this.props.title;
+
     return (
       <div className="header-top">
         <div className="header-container">
           <Link
             to="/"
-          ><h1>disUSsion</h1></Link>
+          ><h1>{title ? title : 'discUSsion'}</h1></Link>
         </div>
       </div>
     );

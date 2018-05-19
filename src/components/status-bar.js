@@ -1,20 +1,81 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Form, TextArea } from 'react-form';
+import Bullhorn from 'react-icons/lib/fa/bullhorn';
+import SetFire from 'react-icons/lib/fa/fire';
+import Modal from 'react-modal';
 import { Box, Flex } from 'reflexbox';
+import '../styles/modal.css';
 
 class Statusbar extends React.Component {
 
+  state = {
+    modalOpen: false,
+  }
+
+  componentWillMount() {
+    Modal.setAppElement('body');
+  }
+
+  openModal = () => {
+    this.setState(() => ({
+      modalOpen: true,
+    }))
+  }
+
+  closeModal = () => {
+    this.setState(() => ({
+      modalOpen: false,
+    }))
+  }
+
+  addComment = () => {
+    this.setState(() => ({
+      modalOpen: false,
+    }))
+  }
+
   render() {
+    const { modalOpen } = this.state;
+
     return (
-      <Flex p={1} align='center'>
-        <Box px={2} w={1/3}>{this.props.likes} likes</Box>
-        <Box px={2} w={1/3}>{this.props.comments} comments</Box>
-        <Box px={2} w={1/3}>
-          <Link to="/">
-            <p>+ Add coment</p>
-          </Link>
-        </Box>
-      </Flex>
+      <div>
+        <Flex p={1} align='center'>
+          <Box px={2} w={1 / 3}>
+            <button onClick={this.setFire} className='icon-btn'>
+              <SetFire size={30} />
+              <h2>{this.props.likes} fires</h2>
+            </button>
+          </Box>
+          <Box px={2} w={1 / 3}>
+            <button onClick={this.openModal} className='icon-btn'>
+              <Bullhorn size={30} />
+              <h2>{this.props.comments} Bullhorns</h2>
+            </button>
+          </Box>
+        </Flex>
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={modalOpen}
+          onRequestClose={this.closeModal}
+          contentLabel='Modal'
+        >
+          <Form class="form" onSubmit={submittedValues => this.setState({ submittedValues })}>
+            {formApi => (
+              <form onSubmit={formApi.submitForm} id="form2">
+                <label htmlFor="text">Text</label>
+                <TextArea field="text" id="text" />
+                <button
+                  className='icon-btn btn btn-primary'
+                  type="submit"
+                  onClick={this.addComment}>
+                  <Bullhorn size={30} />
+                </button>
+              </form>
+            )}
+          </Form>
+        </Modal>
+      </div>
     );
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Home from './modules/home/home';
 import { Route } from 'react-router-dom';
-import PostForm from './modules/post-new-edit/post-new-edit';
+import PostForm from './modules/post-form/post-form';
 import Post from './modules/post/post';
 
 class App extends Component {

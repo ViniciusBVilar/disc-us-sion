@@ -1,10 +1,8 @@
 import React from 'react';
-import { Box, Flex } from 'reflexbox';
 import '../styles/post.css';
 import CommentList from './comment-list';
 import Statusbar from './status-bar';
 import Toolbar from './tool-bar';
-
 class PostComponent extends React.Component {
 
   comments = ['comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5', 'comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5', 'comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5', 'comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5'];
@@ -19,12 +17,10 @@ class PostComponent extends React.Component {
     return (
       <div >
         <div className="post">
-          <h3 htmlFor="title">Title</h3>
-          <p>{title}</p>
-          <h3 htmlFor="text">Text</h3>
-          <p>{text}</p>
-          <h3 htmlFor="author">Author</h3>
-          <p>{author}</p>
+          <h1>{title}</h1>
+          <h4>{text}</h4>
+          <caption>{author}</caption>
+          {/* TODO: PASS THIS COMPONENT TO A GRID IN FORM TOP */}
           <div className="tool-bar">
             <Toolbar createdAt={createdAt} />
           </div>

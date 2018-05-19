@@ -7,7 +7,7 @@ class Post extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title={'The Bomb'}/>
         <PostComponent 
           title="Title test"
           text="blablabla asasdasdsa dasd asd asd awd asd asd sad"

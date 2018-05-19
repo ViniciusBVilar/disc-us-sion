@@ -7,7 +7,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title={'DiscUSsion'}/>
         <AddFAB />
       </div>
     );

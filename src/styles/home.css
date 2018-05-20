@@ -1,4 +1,4 @@
-.post-card {
+.home-card {
   margin: 16px;
   border: 1px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255);
@@ -8,5 +8,9 @@
   padding: 20px;
   border-radius: 3px;
   box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
-  min-width: 500px;
+}
+
+.categories {
+  position: fixed;
+  top: 84px;
 }

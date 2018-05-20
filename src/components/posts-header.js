@@ -17,11 +17,12 @@ class PostsHeader extends React.Component {
   ]
 
   render() {
+    const title = this.props.title;
     return (
       <div className="post-header">
         <Flex p={1} align='center'>
           <Box px={2} w={[1, 1/2, 3/4]}>
-            <h1>All posts</h1>
+            <h1>{title}</h1>
           </Box>
           <Box px={2} w={[1, 1/2, 1/4]}>
             <Form onSubmit={submittedValues => this.setState({ submittedValues })}>

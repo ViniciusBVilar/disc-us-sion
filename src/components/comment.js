@@ -6,7 +6,7 @@ class Comment extends React.Component {
 
   render() {
     return (
-      <div >
+      <div>
         <div className="comment">
           <p>{this.props.comment}</p>
         </div>

@@ -10,7 +10,7 @@ class PostComponent extends React.Component {
     const { title, text, author, fires, comments, createdAt } = this.props;
 
     return (
-      <div >
+      <div>
         <Flex wrap p={1} align='center'>
           <Flex p={1} align='center'>
             <Box px={2} w={3 / 4}>

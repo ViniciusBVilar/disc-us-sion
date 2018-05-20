@@ -7,7 +7,7 @@ class Toolbar extends React.Component {
   render() {
     return (
       <Flex p={2} align='center'>
-        <Box px={2} w={3/5}>{this.props.createdAt}</Box>
+        <Box px={2} w={3/5}>{new Date(this.props.createdAt).toString()}</Box>
         <Box px={2} w={1/5}>
           <Link to="/postForm">
             <p>Editar</p>

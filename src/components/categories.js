@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import '../styles/home.css';
 
 class Categories extends React.Component {
-  
-  categories = ['Science', 'Religion', 'Politics'];
 
   render() {
+    const categories = this.props.categories;
+
     return (
       <div>
         <h1>Categories</h1>
@@ -15,11 +15,11 @@ class Categories extends React.Component {
             to="/"
           >All categories</Link>
         </div>
-        {this.categories && this.categories.map((category, index) => (
+        {categories && categories.map((category, index) => (
           <div key={`div${index}`} className="home-card">
             <Link
-              to={`/category/${category}`}
-            >{category}</Link>
+              to={`/category/${category.path}`}
+            >{category.name}</Link>
           </div>
         ))}
       </div>

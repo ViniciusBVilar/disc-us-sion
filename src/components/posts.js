@@ -7,24 +7,25 @@ import '../styles/home.css';
 
 class Posts extends React.Component {
 
-  posts = ['s', 's', 's'];
-
   render() {
-    const category = this.props.category;
-    
+    const { category, posts }= this.props;
+
     return (
       <div>
         <PostsHeader title={category} />
-        {this.posts && this.posts.map((post, index) => (
-          <div key={`div${index}`} className="home-card">
+        {posts && posts.map((post, index) => (
+          <div key={`${post.id}${index}`} className="home-card">
             <PostComponent
-              key={`PostComponent${index}`}
-              title="Title test"
-              text="blablabla asasdasdsa dasd asd asd awd asd asd sad"
-              author="Darwin, Author"
-              fires={333}
-              comments={666}
-              createdAt="12/12/2012" />
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              text={post.body}
+              category={post.category}
+              author={post.author}
+              fires={post.voteScore}
+              comments={post.commentCount}
+              createdAt={post.timestamp} 
+              deleted={post.deleted}/>
           </div>
         ))}
         <AddFAB />

@@ -3,13 +3,52 @@ import { Box, Flex } from 'reflexbox';
 import Categories from '../../components/categories';
 import Header from '../../components/header';
 import Posts from '../../components/posts';
+import { fetchCategories } from '../../data/categories-data-source';
+import { fetchCategoryPosts } from '../../data/posts-data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 
 class Category extends React.Component {
 
+  state = {
+    category: null,
+    categories: null,
+    loadingCategories: false,
+    posts: null,
+    loadingPosts: false,
+  }
+
+  componentWillReceiveProps() {
+    const category = this.props.category.match.params.category
+    this.setState({ category });
+    this.fetchPosts(category);
+  }
+
+  componentDidMount() {
+    const category = this.props.category.match.params.category
+    this.setState({ category });
+    this.fetchPosts(category);
+    fetchCategories()
+      .then((categories) => this.setState(() => ({
+        categories,
+        loadingCategories: false,
+      })))
+  }
+
+  fetchPosts(category) {
+    fetchCategoryPosts(category)
+      .then((posts) => this.setState(() => ({
+        posts,
+        loadingPosts: false,
+      })));
+  }
+
+  componentWillUnmount() {
+    this.setState(() => ({}))
+  }
+
   render() {
-    const category = this.props.category.match.params.category || 'adssad';
+    const { category, categories, posts } = this.state;
 
     return (
       <div>
@@ -17,10 +56,10 @@ class Category extends React.Component {
         <div className="header-offset">
           <Flex p={1} align='center'>
             <Box className="categories" px={2} w={1 / 6}>
-              <Categories />
+              <Categories categories={categories} />
             </Box>
             <Box px={2} ml='25%' w={5 / 6}>
-              <Posts category={category} />
+              <Posts category={category} posts={posts} />
             </Box>
           </Flex>
         </div>

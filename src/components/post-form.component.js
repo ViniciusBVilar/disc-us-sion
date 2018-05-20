@@ -13,7 +13,7 @@ class PostFormComponent extends React.Component {
 
   render() {
     return (
-      <Form class="form" onSubmit={submittedValues => this.setState({ submittedValues })}>
+      <Form className="form" onSubmit={submittedValues => this.setState({ submittedValues })}>
         {formApi => (
           <form onSubmit={formApi.submitForm} id="form2">
             <label htmlFor="title">Title</label>

@@ -8,7 +8,7 @@ class CommentList extends React.Component {
       <div>
         {this.props.comments &&
           this.props.comments.map((comment, index) => (
-            <Comment key={index} comment={comment} />
+            <Comment key={`Comment${index}`} comment={comment} />
           ))}
       </div>
     );

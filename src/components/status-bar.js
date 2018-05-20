@@ -61,7 +61,7 @@ class Statusbar extends React.Component {
           onRequestClose={this.closeModal}
           contentLabel='Modal'
         >
-          <Form class="form" onSubmit={submittedValues => this.setState({ submittedValues })}>
+          <Form className="form" onSubmit={submittedValues => this.setState({ submittedValues })}>
             {formApi => (
               <form onSubmit={formApi.submitForm} id="form2">
                 <label htmlFor="text">Text</label>

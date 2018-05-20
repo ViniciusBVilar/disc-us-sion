@@ -13,7 +13,7 @@ class Post extends React.Component {
     return (
       <div>
         <Header title={'The Bomb'} />
-        <div class="header-offset">
+        <div className="header-offset">
           <PostComponent
             title="Title test"
             text="blablabla asasdasdsa dasd asd asd awd asd asd sad"

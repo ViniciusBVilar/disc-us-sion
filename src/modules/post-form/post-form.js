@@ -9,7 +9,7 @@ class PostForm extends React.Component {
     return (
       <div>
         <Header title={'Plant the Bomb'} />
-        <div class="header-offset">
+        <div className="header-offset">
           <PostFormComponent />
         </div>
       </div>

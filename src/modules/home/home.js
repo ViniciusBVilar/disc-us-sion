@@ -14,11 +14,12 @@ class Home extends React.Component {
     return (
       <div>
         <Header title={'DiscUSsion'} />
-        <div class="header-offset">
+        <div className="header-offset">
           <PostsHeader />
           {this.posts && this.posts.map((post, index) => (
-            <div className="post-card">
+            <div key={`div${index}`} className="post-card">
               <PostComponent
+                key={`PostComponent${index}`}
                 title="Title test"
                 text="blablabla asasdasdsa dasd asd asd awd asd asd sad"
                 author="Darwin, Author"

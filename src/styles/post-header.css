@@ -1,0 +1,9 @@
+.post-header {
+  margin: 16px;
+  background: #f0dabb;
+}
+
+.inline-form {
+  margin: 0;
+  display: inline-flex;
+}

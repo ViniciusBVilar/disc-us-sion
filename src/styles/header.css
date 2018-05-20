@@ -24,3 +24,7 @@
   margin: 0;
   color: white;
 }
+
+.header-offset {
+  margin-top: 5rem;
+}

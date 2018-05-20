@@ -36,6 +36,7 @@ class Statusbar extends React.Component {
 
   render() {
     const { modalOpen } = this.state;
+    const { fires, comments } = this.props;
 
     return (
       <div>
@@ -43,13 +44,13 @@ class Statusbar extends React.Component {
           <Box px={2} w={1 / 3}>
             <button onClick={this.setFire} className='icon-btn'>
               <SetFire size={30} />
-              <h2>{this.props.likes} fires</h2>
+              <h2>{fires} fires</h2>
             </button>
           </Box>
           <Box px={2} w={1 / 3}>
             <button onClick={this.openModal} className='icon-btn'>
               <Bullhorn size={30} />
-              <h2>{this.props.comments} Bullhorns</h2>
+              <h2>{comments} Bullhorns</h2>
             </button>
           </Box>
         </Flex>

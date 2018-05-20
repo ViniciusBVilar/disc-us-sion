@@ -12,14 +12,14 @@ class App extends Component {
         <Route exact path="/" render={() => (
           <Home />
         )} />
-        <Route exact path="/:category" render={(category) => (
-          <Category category={category}/>
-        )} />
         <Route exact path="/postForm" render={() => (
           <PostForm />
         )} />
         <Route exact path="/post" render={() => (
           <Post />
+        )} />
+        <Route exact path="/category/:category" render={(category) => (
+          <Category category={category}/>
         )} />
       </div>
     );

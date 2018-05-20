@@ -1,10 +1,8 @@
 import React from 'react';
 import { Box, Flex } from 'reflexbox';
-import AddFAB from '../../components/add-fab';
 import Categories from '../../components/categories';
 import Header from '../../components/header';
-import PostComponent from '../../components/post.component';
-import PostsHeader from '../../components/posts-header';
+import Posts from '../../components/posts';
 import '../../styles/header.css';
 import '../../styles/home.css';
 
@@ -22,20 +20,7 @@ class Home extends React.Component {
               <Categories />
             </Box>
             <Box px={2} ml='25%' w={5 / 6}>
-              <PostsHeader title="All posts" />
-              {this.posts && this.posts.map((post, index) => (
-                <div key={`div${index}`} className="home-card">
-                  <PostComponent
-                    key={`PostComponent${index}`}
-                    title="Title test"
-                    text="blablabla asasdasdsa dasd asd asd awd asd asd sad"
-                    author="Darwin, Author"
-                    fires={333}
-                    comments={666}
-                    createdAt="12/12/2012" />
-                </div>
-              ))}
-              <AddFAB />
+              <Posts category='All Categories' />
             </Box>
           </Flex>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Select } from 'react-form';
 import { Box, Flex } from 'reflexbox';
-import '../styles/post-header.css';
+import '../../styles/post-header.css';
 
 class PostsHeader extends React.Component {
 

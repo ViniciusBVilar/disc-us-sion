@@ -1,9 +1,9 @@
 import React from 'react';
-import AddFAB from '../components/add-fab';
-import PostComponent from '../components/post.component';
-import PostsHeader from '../components/posts-header';
-import '../styles/header.css';
-import '../styles/home.css';
+import AddFAB from './add-fab';
+import PostComponent from './post.component';
+import PostsHeader from './posts-header';
+import '../../styles/header.css';
+import '../../styles/home.css';
 
 class Posts extends React.Component {
 
@@ -25,10 +25,10 @@ class Posts extends React.Component {
               fires={post.voteScore}
               comments={post.commentCount}
               createdAt={post.timestamp} 
-              deleted={post.deleted}/>
+              deleted={post.deleted} />
           </div>
         ))}
-        <AddFAB />
+        <AddFAB category={category}/>
       </div>
     );
   }

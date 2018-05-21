@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Flex } from 'reflexbox';
-import Categories from '../../components/categories';
-import Header from '../../components/header';
-import Posts from '../../components/posts';
+import Categories from '../../components/shared/categories';
+import Header from '../../components/shared/header';
+import Posts from '../../components/post/posts';
 import { fetchCategories } from '../../data/categories-data-source';
 import { fetchAllPosts } from '../../data/posts-data-source';
 import '../../styles/header.css';
@@ -25,11 +25,14 @@ class Home extends React.Component {
         categories,
         loadingCategories: false,
       })))
+      .catch((err) => {alert(err)});
+
     fetchAllPosts()
       .then((posts) => this.setState(() => ({
         posts,
         loadingPosts: false,
       })))
+      .catch((err) => {alert(err)});
   }
 
   render() {

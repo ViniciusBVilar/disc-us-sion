@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Flex } from 'reflexbox';
-import Categories from '../../components/categories';
-import Header from '../../components/header';
-import Posts from '../../components/posts';
+import Categories from '../../components/shared/categories';
+import Header from '../../components/shared/header';
+import Posts from '../../components/post/posts';
 import { fetchCategories } from '../../data/categories-data-source';
 import { fetchCategoryPosts } from '../../data/posts-data-source';
 import '../../styles/header.css';
@@ -33,6 +33,7 @@ class Category extends React.Component {
         categories,
         loadingCategories: false,
       })))
+      .catch((err) => {alert(err)});
   }
 
   fetchPosts(category) {
@@ -40,7 +41,9 @@ class Category extends React.Component {
       .then((posts) => this.setState(() => ({
         posts,
         loadingPosts: false,
-      })));
+      })))
+      .catch((err) => {alert(err)});
+      
   }
 
   componentWillUnmount() {

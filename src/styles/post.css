@@ -15,7 +15,12 @@ h3 {
   right: 0;
 }
 
-.status-bar {
+.status-bar-post {
   background: #f0fbfa;
   border-bottom: 1px dotted #00f0f0;
+}
+
+.status-bar-comment {
+  background: #F0dabb;
+  border-bottom: 1px dotted #f0dabb;
 }

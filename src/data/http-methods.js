@@ -1,10 +1,12 @@
 
-const headers = [{ 'Authorization': 'letitbe' }];
+export const headers = [{ 'Authorization': 'letitbe' }];
 
-export const configGET = {
-  method: 'GET',
-  headers: [...headers],
-};
+export const configGET = () => {
+  return {
+    method: 'GET',
+    headers: [...headers],
+  };
+}
 
 export const configPOST = (body) => {
   return {
@@ -12,7 +14,7 @@ export const configPOST = (body) => {
     headers: [...headers],
     body: JSON.stringify({ body })
   }
-};
+}
 
 export const configPUT = (body) => {
   return {
@@ -20,9 +22,11 @@ export const configPUT = (body) => {
     headers: [...headers],
     body: JSON.stringify({ body })
   };
-};
+}
 
-export const configDELETE = {
-  method: 'DELETE',
-  headers: [...headers],
-};
+export const configDELETE = () => {
+  return {
+    method: 'DELETE',
+    headers: [...headers],
+  };
+}

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Flex } from 'reflexbox';
-import '../styles/post.css';
-import Statusbar from './status-bar';
-import Toolbar from './tool-bar';
+import '../../styles/post.css';
+import Statusbar from '../shared/status-bar';
+import Toolbar from '../shared/tool-bar';
 
 class PostComponent extends React.Component {
 
   render() {
-    const { title, text, author, fires, comments, createdAt } = this.props;
+    const { id, title, text, author, fires, comments, createdAt, category } = this.props;
 
     return (
       <div>
@@ -17,7 +17,7 @@ class PostComponent extends React.Component {
               <h1>{title}</h1>
             </Box>
             <Box px={2} w={1 / 4}>
-              <Toolbar createdAt={createdAt} />
+              <Toolbar id={id} category={category} createdAt={createdAt} isPost={true}/>
             </Box>
           </Flex>
           <Box px={2} w={1}>
@@ -27,8 +27,8 @@ class PostComponent extends React.Component {
             <p>{author}</p>
           </Box>
         </Flex>
-        <div className="status-bar">
-          <Statusbar fires={fires} comments={comments} />
+        <div className="status-bar-post">
+          <Statusbar fires={fires} comments={comments} id={id} category={category} isPost={true}/>
         </div>
       </div>
     );

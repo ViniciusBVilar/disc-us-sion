@@ -1,27 +1,48 @@
 import React from 'react';
-import Header from '../../components/header';
-import PostComponent from '../../components/post.component';
-import CommentList from '../../components/comment-list';
+import Header from '../../components/shared/header';
+import PostComponent from '../../components/post/post.component';
+import CommentList from '../../components/comment/comment-list';
 import '../../styles/header.css';
+import { fetchPostDetails, fetchPostComments } from '../../data/posts-data-source';
 
 class Post extends React.Component {
 
-  comments = ['comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5', 'comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5', 'comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5', 'comment comment comment comment comment comment 1', 'comment comment comment comment comment comment 2 comment comment comment 2 comment comment comment 2 ', 'comment comment comment comment comment comment 3', 'comment comment comment comment comment comment 4', 'comment comment comment comment comment comment 5'];
   likes = 122;
+  state = {
+    details: {},
+    comments: [],
+  }
+
+  componentDidMount() {
+    const id = this.props.params.match.params.id
+    fetchPostDetails(id)
+      .then((details) => this.setState({ details }))
+      .catch((err) => { alert(err) });
+
+    fetchPostComments(id)
+      .then((comments) => this.setState({ comments }))
+      .catch((err) => { alert(err) });
+  }
 
   render() {
+    const { title, body, author, upVotes, timestamp } = this.state.details;
+    const comments = this.state.comments || [];
+    const { id , category } = this.props.params.match.params;
+
     return (
       <div>
         <Header title={'The Bomb'} />
         <div className="header-offset">
           <PostComponent
-            title="Title test"
-            text="blablabla asasdasdsa dasd asd asd awd asd asd sad"
-            author="Darwin, Author"
-            fires={this.likes}
-            comments={this.comments.length}
-            createdAt="12/12/2012" />
-          <CommentList comments={this.comments} />
+            id={id}
+            title={title}
+            text={body}
+            author={author}
+            fires={upVotes}
+            comments={comments.length}
+            createdAt={timestamp} 
+            category={category}/>
+          <CommentList comments={comments} />
         </div>
       </div>
     );

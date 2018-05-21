@@ -1,4 +1,4 @@
-import { configDELETE, configGET, configPOST, configPUT } from "./http-methods";
+import { configDELETE, configGET } from "./http-methods";
 
 // const BASE_URL = process.env.BASE_URL || 'http://localhost:3001';
 const BASE_URL = 'http://localhost:3001';
@@ -19,6 +19,22 @@ export function fetchAllPosts() {
     .then((res) => res.json())
 }
 
+//GET /posts/:id
+//  USAGE:
+//    Get the details of a single post
+export function fetchPostDetails(id = '') {
+  return fetch(`${BASE_URL}/posts/${id}`, configGET)
+    .then((res) => res.json())
+}
+
+//GET /posts/:id/comments
+//  USAGE:
+//    Get all the comments for a single post
+export function fetchPostComments(id = '') {
+  return fetch(`${BASE_URL}/posts/${id}/comments`, configGET)
+    .then((res) => res.json())
+}
+
 //POST /posts
 //  USAGE:
 //    Add a new post
@@ -30,17 +46,13 @@ export function fetchAllPosts() {
 //    author - String
 //    category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 export function post(post) {
-  return fetch(`${BASE_URL}/posts`, configPOST(post))
+  return fetch(`${BASE_URL}/posts`,
+    {
+      method: 'POST',
+      headers: { 'Authorization': 'letitbe' },
+      body: JSON.stringify({ post })
+    })
     .then((res) => res.json());
-}
-
-//GET /posts/:id
-//  USAGE:
-//    Get the details of a single post
-export function fetchPostDetails(id = '') {
-  return fetch(`${BASE_URL}/posts/${id}`, configGET)
-    .then((res) => res.json())
-    .then((data) => data.details);
 }
 
 //POST /posts/:id
@@ -48,8 +60,13 @@ export function fetchPostDetails(id = '') {
 //    Used for voting on a post
 //  PARAMS:
 //    option - String: Either "upVote" or "downVote"
-export function vote(id, params) {
-  return fetch(`${BASE_URL}/posts/${id}`, configPOST(params))
+export function votePost(id, params) {
+  return fetch(`${BASE_URL}/posts/${id}`,
+    {
+      method: 'POST',
+      headers: [{ 'Authorization': 'letitbe' }],
+      body: JSON.stringify({ params })
+    })
     .then((res) => res.json());
 }
 
@@ -60,7 +77,12 @@ export function vote(id, params) {
 //    title - String
 //    body - String
 export function editPost(id, params) {
-  return fetch(`${BASE_URL}/posts/${id}`, configPUT(params))
+  return fetch(`${BASE_URL}/posts/${id}`,
+    {
+      method: 'PUT',
+      headers: [{ 'Authorization': 'letitbe' }],
+      body: JSON.stringify({ params })
+    })
     .then((res) => res.json());
 }
 
@@ -69,15 +91,6 @@ export function editPost(id, params) {
 //    Sets the deleted flag for a post to 'true'.
 //    Sets the parentDeleted flag for all child comments to 'true'.
 export function deletePost(id) {
-  return fetch(`${BASE_URL}/posts/${id}`, configDELETE())
+  return fetch(`${BASE_URL}/posts/${id}`, configDELETE)
     .then((res) => res.json());
-}
-
-//GET /posts/:id/comments
-//  USAGE:
-//    Get all the comments for a single post
-export function fetchPostCommnets(id = '') {
-  return fetch(`${BASE_URL}/posts/${id}/comments`, configGET)
-    .then((res) => res.json())
-    .then((data) => data.comments);
 }

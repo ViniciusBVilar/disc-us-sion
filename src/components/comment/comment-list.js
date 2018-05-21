@@ -4,11 +4,12 @@ import Comment from './comment';
 class CommentList extends React.Component {
 
   render() {
+    
     return (
       <div>
         {this.props.comments &&
-          this.props.comments.map((comment, index) => (
-            <Comment key={`Comment${index}`} comment={comment} />
+          this.props.comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
           ))}
       </div>
     );

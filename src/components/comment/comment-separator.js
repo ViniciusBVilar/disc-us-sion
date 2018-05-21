@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/comment.css';
+import '../../styles/comment.css';
 
 class CommentSeparator extends React.Component {
 

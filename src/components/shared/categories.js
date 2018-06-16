@@ -18,7 +18,7 @@ class Categories extends React.Component {
         {categories && categories.map((category, index) => (
           <div key={`div${index}`} className="home-card">
             <Link
-              to={`/category/${category.path}`}
+              to={`/${category.path}`}
             >{category.name}</Link>
           </div>
         ))}

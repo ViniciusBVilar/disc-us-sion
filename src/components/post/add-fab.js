@@ -10,7 +10,7 @@ class AddFAB extends React.Component {
     return (
       <div className="add-fab">
         <Link
-          to={`/postForm/${category}`}
+          to={`/createForm/${category}`}
         >Add</Link>
       </div>
     );

@@ -8,86 +8,94 @@ import Modal from 'react-modal';
 import { Box, Flex } from 'reflexbox';
 import '../../styles/modal.css';
 import { Link } from 'react-router-dom';
-import { votePost } from '../../data/posts-data-source';
-import { comment, voteComment, editComment } from '../../data/comments-data-source';
+import { votePost } from '../../data/posts.data-source';
+import {
+  comment,
+  voteComment,
+  editComment
+} from '../../data/comments.data-source';
 
 const UP_VOTE = 'upVote';
 const DOWN_VOTE = 'downVote';
 
 class Statusbar extends React.Component {
-
   state = {
-    modalOpen: false,
-  }
+    modalOpen: false
+  };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     Modal.setAppElement('body');
     this.setState({ isPost: this.props.isPost });
   }
 
   openModal = () => {
     this.setState(() => ({
-      modalOpen: true,
-    }))
-  }
+      modalOpen: true
+    }));
+  };
 
   closeModal = () => {
     this.setState(() => ({
-      modalOpen: false,
-    }))
-  }
+      modalOpen: false
+    }));
+  };
 
-  addComment = (formValues) => {
+  addComment = formValues => {
     const id = this.props.id;
 
     this.setState(() => ({
-      modalOpen: false,
-    }))
+      modalOpen: false
+    }));
 
     const body = {
       ...formValues,
       id: `${Math.random()}|${new Date()}`,
       timestamp: new Date(),
-      parentId: id,
+      parentId: id
     };
 
-    this.props.newComment ?
-      comment(body)
+    this.props.newComment
+      ? comment(body)
         .then(succes => alert(succes))
         .catch(err => alert(err))
-      :
-      editComment(id, body)
+      : editComment(id, body)
         .then(succes => alert(succes))
         .catch(err => alert(err));
-  }
+  };
 
   upVote = () => {
-    this.vote(true)
-  }
+    this.vote(true);
+  };
 
   downVote = () => {
-    this.vote(false)
-  }
+    this.vote(false);
+  };
 
   vote = (up = false) => {
     const id = this.props.id;
 
     this.isPost
-      ?
-      votePost(id, up ? UP_VOTE : DOWN_VOTE)
-        .then((posts) => this.setState(() => ({
-          posts,
-          loadingPosts: false,
-        })))
-        .catch((err) => { alert(err) })
-      :
-      voteComment(id, up ? UP_VOTE : DOWN_VOTE)
-        .then((posts) => this.setState(() => ({
-          posts,
-          loadingPosts: false,
-        })))
-        .catch((err) => { alert(err) });
-  }
+      ? votePost(id, up ? UP_VOTE : DOWN_VOTE)
+        .then(posts =>
+          this.setState(() => ({
+            posts,
+            loadingPosts: false
+          }))
+        )
+        .catch(err => {
+          alert(err);
+        })
+      : voteComment(id, up ? UP_VOTE : DOWN_VOTE)
+        .then(posts =>
+          this.setState(() => ({
+            posts,
+            loadingPosts: false
+          }))
+        )
+        .catch(err => {
+          alert(err);
+        });
+  };
 
   render() {
     const { isPost, modalOpen } = this.state;
@@ -109,16 +117,20 @@ class Statusbar extends React.Component {
             </button>
           </Box>
           <Box px={2} w={1 / 4}>
-            {isPost && <button onClick={this.openModal} className='icon-btn'>
-              <Bullhorn size={30} />
-              <h2>{comments} Bullhorns</h2>
-            </button>}
+            {isPost && (
+              <button onClick={this.openModal} className='icon-btn'>
+                <Bullhorn size={30} />
+                <h2>{comments} Bullhorns</h2>
+              </button>
+            )}
           </Box>
           <Box px={2} w={1 / 4}>
-            {isPost && <Link to={`/post/${category}/${id}`}>
-              <BlaBlaBlas size={30} />
-              <h2>BlaBlaBlas</h2>
-            </Link>}
+            {isPost && (
+              <Link to={`/${category}/${id}`}>
+                <BlaBlaBlas size={30} />
+                <h2>BlaBlaBlas</h2>
+              </Link>
+            )}
           </Box>
         </Flex>
         <Modal
@@ -128,16 +140,17 @@ class Statusbar extends React.Component {
           onRequestClose={this.closeModal}
           contentLabel='Modal'
         >
-          <Form className="form" onSubmit={submittedValues => this.addComment(submittedValues)}>
+          <Form
+            className='form'
+            onSubmit={submittedValues => this.addComment(submittedValues)}
+          >
             {formApi => (
-              <form onSubmit={formApi.submitForm} id="form2">
-                <label htmlFor="text">Text</label>
-                <TextArea field="text" id="text" />
-                <label htmlFor="author">Author</label>
-                <Text field="author" id="author" />
-                <button
-                  className='icon-btn btn btn-primary'
-                  type="submit">
+              <form onSubmit={formApi.submitForm} id='form2'>
+                <label htmlFor='text'>Text</label>
+                <TextArea field='text' id='text' />
+                <label htmlFor='author'>Author</label>
+                <Text field='author' id='author' />
+                <button className='icon-btn btn btn-primary' type='submit'>
                   <Bullhorn size={30} />
                 </button>
               </form>
@@ -147,7 +160,6 @@ class Statusbar extends React.Component {
       </div>
     );
   }
-
 }
 
 export default Statusbar;

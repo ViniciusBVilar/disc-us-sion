@@ -7,10 +7,19 @@ import Statusbar from '../shared/status-bar';
 import Toolbar from '../shared/tool-bar';
 
 class Comment extends React.Component {
-
   render() {
-    const { id, parentId, deleted, parentDeleted, author, body, timestamp, voteScore, category } = this.props.comment;
-    
+    const {
+      id,
+      parentId,
+      deleted,
+      parentDeleted,
+      author,
+      body,
+      timestamp,
+      voteScore,
+      category
+    } = this.props.comment;
+
     return (
       <div>
         <Flex wrap p={1} align='center'>
@@ -19,21 +28,31 @@ class Comment extends React.Component {
               <h1>{body}</h1>
             </Box>
             <Box px={2} w={1 / 4}>
-              <Toolbar id={id} category={category} createdAt={timestamp} isPost={false}/>
+              <Toolbar
+                id={id}
+                category={category}
+                createdAt={timestamp}
+                isPost={false}
+              />
             </Box>
           </Flex>
           <Box px={2} w={1}>
             <p>{author}</p>
           </Box>
         </Flex>
-        <div className="status-bar-comment">
-          <Statusbar fires={voteScore} id={id} category={category} isPost={false} newComment={id != null}/>
+        <div className='status-bar-comment'>
+          <Statusbar
+            fires={voteScore}
+            id={id}
+            category={category}
+            isPost={false}
+            newComment={id != null}
+          />
         </div>
         <CommentSeparator />
       </div>
     );
   }
-
 }
 
 export default Comment;

@@ -16,8 +16,8 @@ class PostFormComponent extends React.Component {
           <form onSubmit={formApi.submitForm} id="form2">
             <label htmlFor="title">Title</label>
             <Text field="title" id="title" validate={this.validate} />
-            <label htmlFor="text">Text</label>
-            <TextArea field="text" id="text" />
+            <label htmlFor="body">Text</label>
+            <TextArea field="body" id="body" />
             <label htmlFor="author">Author</label>
             <Text field="author" id="author" />
             <button

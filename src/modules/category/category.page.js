@@ -4,21 +4,30 @@ import Categories from '../../components/shared/categories';
 import Header from '../../components/shared/header';
 import Posts from '../../components/post/posts';
 import { fetchCategories } from '../../data/categories.data-source';
-import { fetchAllPosts } from '../../data/posts.data-source';
+import { fetchCategoryPosts } from '../../data/posts.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 
-class Home extends React.Component {
+class CategoryPage extends React.Component {
   state = {
+    category: null,
     categories: null,
     loadingCategories: false,
     posts: null,
     loadingPosts: false
   };
 
-  posts = ['s', 's', 's'];
+  // TODO: replace with getDerivedStateFromProps()
+  UNSAFE_componentWillReceiveProps() {
+    const category = this.props.category.match.params.category;
+    this.setState({ category });
+    this.fetchPosts(category);
+  }
 
   componentDidMount() {
+    const category = this.props.category.match.params.category;
+    this.setState({ category });
+    this.fetchPosts(category);
     fetchCategories()
       .then(categories =>
         this.setState(() => ({
@@ -29,8 +38,10 @@ class Home extends React.Component {
       .catch(err => {
         alert(err);
       });
+  }
 
-    fetchAllPosts()
+  fetchPosts(category) {
+    fetchCategoryPosts(category)
       .then(posts =>
         this.setState(() => ({
           posts,
@@ -42,8 +53,12 @@ class Home extends React.Component {
       });
   }
 
+  componentWillUnmount() {
+    this.setState(() => ({}));
+  }
+
   render() {
-    const { categories, posts } = this.state;
+    const { category, categories, posts } = this.state;
 
     return (
       <div>
@@ -54,7 +69,7 @@ class Home extends React.Component {
               <Categories categories={categories} />
             </Box>
             <Box px={2} ml='25%' w={5 / 6}>
-              <Posts category='All Categories' posts={posts} />
+              <Posts category={category} posts={posts} />
             </Box>
           </Flex>
         </div>
@@ -63,4 +78,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default CategoryPage;

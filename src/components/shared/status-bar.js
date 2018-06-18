@@ -47,20 +47,24 @@ class Statusbar extends React.Component {
       modalOpen: false
     }));
 
-    const body = {
+    this.props.onSubmitCommentClick({
       ...formValues,
-      id: `${Math.random()}|${new Date()}`,
       timestamp: new Date(),
       parentId: id
-    };
-
-    this.props.newComment
-      ? comment(body)
-        .then(succes => alert(succes))
-        .catch(err => alert(err))
-      : editComment(id, body)
-        .then(succes => alert(succes))
-        .catch(err => alert(err));
+    });
+    // const body = {
+    //   ...formValues,
+    //   id: `${Math.random()}|${new Date()}`,
+    //   timestamp: new Date(),
+    //   parentId: id
+    // };
+    // this.props.newComment
+    //   ? comment(body)
+    //     .then(succes => alert(succes))
+    //     .catch(err => alert(err))
+    //   : editComment(id, body)
+    //     .then(succes => alert(succes))
+    //     .catch(err => alert(err));
   };
 
   upVote = () => {
@@ -72,30 +76,33 @@ class Statusbar extends React.Component {
   };
 
   vote = (up = false) => {
-    const id = this.props.id;
+    this.props.onVotePostClick(up, this.props.id);
+  }
+  // vote = (up = false) => {
+  //   const id = this.props.id;
 
-    this.isPost
-      ? votePost(id, up ? UP_VOTE : DOWN_VOTE)
-        .then(posts =>
-          this.setState(() => ({
-            posts,
-            loadingPosts: false
-          }))
-        )
-        .catch(err => {
-          alert(err);
-        })
-      : voteComment(id, up ? UP_VOTE : DOWN_VOTE)
-        .then(posts =>
-          this.setState(() => ({
-            posts,
-            loadingPosts: false
-          }))
-        )
-        .catch(err => {
-          alert(err);
-        });
-  };
+  //   this.isPost
+  //     ? votePost(id, up ? UP_VOTE : DOWN_VOTE)
+  //       .then(posts =>
+  //         this.setState(() => ({
+  //           posts,
+  //           loadingPosts: false
+  //         }))
+  //       )
+  //       .catch(err => {
+  //         alert(err);
+  //       })
+  //     : voteComment(id, up ? UP_VOTE : DOWN_VOTE)
+  //       .then(posts =>
+  //         this.setState(() => ({
+  //           posts,
+  //           loadingPosts: false
+  //         }))
+  //       )
+  //       .catch(err => {
+  //         alert(err);
+  //       });
+  // };
 
   render() {
     const { isPost, modalOpen } = this.state;
@@ -113,7 +120,6 @@ class Statusbar extends React.Component {
           <Box px={2} w={1 / 4}>
             <button onClick={this.downVote} className='icon-btn'>
               <Cut size={30} />
-              <h2>{-1 * fires} Cut</h2>
             </button>
           </Box>
           <Box px={2} w={1 / 4}>

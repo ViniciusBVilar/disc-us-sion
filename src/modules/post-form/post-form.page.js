@@ -4,7 +4,7 @@ import PostFormComponent from '../../components/post/post-form.component';
 import '../../styles/header.css';
 import { post, fetchPostDetails, editPost } from '../../data/posts.data-source';
 
-class PostForm extends React.Component {
+class PostFormPage extends React.Component {
   state = {
     id: null,
     category: null,
@@ -26,9 +26,10 @@ class PostForm extends React.Component {
   onFormSubmitted = formData => {
     const data = {
       ...formData.submittedValues,
+      // TODO: generate a UUID
       id: `${Math.random()}|${new Date()}`,
       timestamp: new Date(),
-      category: this.props.params.match.params.category
+      category: this.props.params.match.params.category || 'react',
     };
     this.state.id
       ? editPost(data)
@@ -55,7 +56,7 @@ class PostForm extends React.Component {
         <Header title={'Plant the Bomb'} />
         <div className='header-offset'>
           <PostFormComponent
-            post={this.onFormSubmitted.bind(this)}
+            post={this.onFormSubmitted}
             details={details}
           />
         </div>
@@ -64,4 +65,4 @@ class PostForm extends React.Component {
   }
 }
 
-export default PostForm;
+export default PostFormPage;

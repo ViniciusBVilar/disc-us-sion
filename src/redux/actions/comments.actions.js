@@ -1,54 +1,48 @@
-export const ADD_RECIPE = 'ADD_RECIPE';
-export const REMOVE_FROM_CALENDAR = 'REMOVE_FROM_CALENDAR';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DELETE_PARENT_COMMENT = 'DELETE_PARENT_COMMENT';
+export const UP_VOTE_COMMENT = 'UP_VOTE_COMMENT';
+export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT';
 
-export function createPost({ day, meal }) {
+export function createComment({ comment }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: CREATE_COMMENT,
+    comment
   };
 }
 
-export function editPost({ day, meal }) {
+export function editComment({ comment }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: EDIT_COMMENT,
+    comment,
   };
 }
 
-export function deletePost({ day, meal }) {
+export function deleteComment({ commentId }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: DELETE_COMMENT,
+    commentId,
   };
 }
 
-
-export function upVotePost({ day, meal, recipe }) {
+export function deleteCommentParent({ commentId }) {
   return {
-    type: ADD_RECIPE,
-    day,
-    meal,
-    recipe
+    type: DELETE_PARENT_COMMENT,
+    commentId,
   };
 }
 
-export function downVotePost({ day, meal }) {
+export function upVoteComment({ commentId }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: UP_VOTE_COMMENT,
+    commentId,
   };
 }
 
-
-export function commentPost({ day, meal }) {
+export function downVoteComment({ commentId }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: DOWN_VOTE_COMMENT,
+    commentId,
   };
 }
-

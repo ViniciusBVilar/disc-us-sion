@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-import Home from './modules/home/home';
-import Category from './modules/category/category';
+import HomePage from './modules/home/home.page';
+import CategoryPage from './modules/category/category.page';
 import { Route } from 'react-router-dom';
-import PostForm from './modules/post-form/post-form';
-import Post from './modules/post/post';
+import PostFormPage from './modules/post-form/post-form.page';
+import CategoryPostsPage from './modules/post/category-posts.page';
 
 class App extends Component {
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <Home />
+          <HomePage />
         )} />
         <Route exact path="/createForm/:category" render={(params) => (
-          <PostForm params={params}/>
+          <PostFormPage params={params}/>
         )} />
         <Route exact path="/editForm/:category/:id" render={(params) => (
-          <PostForm params={params}/>
+          <PostFormPage params={params}/>
         )} />
         <Route exact path="/:category/:id" render={(params) => (
-          <Post params={params}/>
+          <CategoryPostsPage params={params}/>
         )} />
         <Route exact path="/:category" render={(category) => (
-          <Category category={category}/>
+          <CategoryPage category={category}/>
         )} />
       </div>
     );

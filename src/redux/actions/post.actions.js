@@ -1,54 +1,40 @@
-export const ADD_RECIPE = 'ADD_RECIPE';
-export const REMOVE_FROM_CALENDAR = 'REMOVE_FROM_CALENDAR';
+export const CREATE_POST = 'CREATE_POST';
+export const EDIT_POST = 'EDIT_POST';
+export const DELETE_POST = 'DELETE_POST';
+export const UP_VOTE_POST = 'UP_VOTE_POST';
+export const DOWN_VOTE_POST = 'DOWN_VOTE_POST';
 
-export function createPost({ day, meal }) {
+export function createPost({ post }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: CREATE_POST,
+    post,
   };
 }
 
-export function editPost({ day, meal }) {
+export function editPost({ post }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: EDIT_POST,
+    post,
   };
 }
 
-export function deletePost({ day, meal }) {
+export function deletePost({ postId }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: DELETE_POST,
+    postId,
   };
 }
 
-
-export function upVotePost({ day, meal, recipe }) {
+export function upVotePost({ postId }) {
   return {
-    type: ADD_RECIPE,
-    day,
-    meal,
-    recipe
+    type: UP_VOTE_POST,
+    postId,
   };
 }
 
-export function downVotePost({ day, meal }) {
+export function downVotePost({ postId }) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
+    type: DOWN_VOTE_POST,
+    postId,
   };
 }
-
-
-export function commentPost({ day, meal }) {
-  return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal
-  };
-}
-

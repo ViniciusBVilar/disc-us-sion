@@ -3,7 +3,7 @@ import HomePage from './modules/home/home.page';
 import CategoryPage from './modules/category/category.page';
 import { Route } from 'react-router-dom';
 import PostFormPage from './modules/post-form/post-form.page';
-import CategoryPostsPage from './modules/post/category-posts.page';
+import PostPage from './modules/post/post.page';
 
 class App extends Component {
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
           <PostFormPage params={params}/>
         )} />
         <Route exact path="/:category/:id" render={(params) => (
-          <CategoryPostsPage params={params}/>
+          <PostPage params={params}/>
         )} />
         <Route exact path="/:category" render={(category) => (
           <CategoryPage category={category}/>

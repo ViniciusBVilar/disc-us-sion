@@ -8,7 +8,7 @@ import {
   fetchPostComments
 } from '../../data/posts.data-source';
 
-class CategoryPostsPage extends React.Component {
+class PostPage extends React.Component {
   likes = 122;
   state = {
     details: {},
@@ -56,4 +56,4 @@ class CategoryPostsPage extends React.Component {
   }
 }
 
-export default CategoryPostsPage;
+export default PostPage;

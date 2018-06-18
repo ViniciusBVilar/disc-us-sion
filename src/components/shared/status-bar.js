@@ -15,8 +15,8 @@ import {
   editComment
 } from '../../data/comments.data-source';
 
-const UP_VOTE = 'upVote';
-const DOWN_VOTE = 'downVote';
+// const UP_VOTE = 'upVote';
+// const DOWN_VOTE = 'downVote';
 
 class Statusbar extends React.Component {
   state = {

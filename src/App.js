@@ -12,17 +12,17 @@ class App extends Component {
         <Route exact path="/" render={() => (
           <HomePage />
         )} />
+        <Route exact path="/:category" render={(category) => (
+          <CategoryPage category={category}/>
+        )} />
         <Route exact path="/createForm/:category" render={(params) => (
           <PostFormPage params={params}/>
         )} />
         <Route exact path="/editForm/:category/:id" render={(params) => (
           <PostFormPage params={params}/>
         )} />
-        <Route exact path="/:category/:id" render={(params) => (
+        <Route exact path="/post/:category/:id" render={(params) => (
           <PostPage params={params}/>
-        )} />
-        <Route exact path="/:category" render={(category) => (
-          <CategoryPage category={category}/>
         )} />
       </div>
     );

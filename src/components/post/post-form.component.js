@@ -11,16 +11,17 @@ class PostFormComponent extends React.Component {
   validate = username => !username || username.trim() === '' ? 'Username is a required field' : null
 
   handleSubmit = submittedValues => {
-    this.props.id ? this.create(submittedValues) : this.edit(submittedValues);
+    this.props.id ? this.edit(submittedValues) : this.create(submittedValues);
   }
 
   create = submittedValues => {
     const data = {
       ...submittedValues,
       timestamp: new Date(),
-      category: this.props.category|| DEFAULT_CATEGORY,
+      category: this.props.category || DEFAULT_CATEGORY,
     };
     this.props.createPostDispatch(data);
+    // TODO: Verificar sucesso e go back
   }
 
   edit = submittedValues => {
@@ -31,20 +32,25 @@ class PostFormComponent extends React.Component {
       category: this.props.category|| DEFAULT_CATEGORY,
     };
     this.props.editPostDispatch(data);
+    // TODO: Verificar sucesso e go back
+  }
+
+  handleFormChange = (data) => {
+    this.setState({[data.target.id]: data.target.value});
   }
 
   render() {
-    const { title, body, author } = this.props.post || {};
+    const { title, body, author } = this.state || this.props.post || {};
     return (
       <Form className="form" onSubmit={this.handleSubmit}>
         {formApi => (
           <form onSubmit={formApi.submitForm} id="form2">
             <label htmlFor="title">Title</label>
-            <Text field="title" id="title" validate={this.validate} value={title}/>
+            <Text type="text" field="title" id="title" validate={this.validate} defaultValue={title}/>
             <label htmlFor="body">Text</label>
-            <TextArea field="body" id="body" value={body}/>
+            <TextArea type="textArea" field="body" id="body" defaultValue={body}/>
             <label htmlFor="author">Author</label>
-            <Text field="author" id="author" value={author}/>
+            <Text type="text" field="author" id="author" defaultValue={author}/>
             <button
               className='icon-btn btn btn-primary'
               type="submit">
@@ -58,10 +64,8 @@ class PostFormComponent extends React.Component {
   }
 }
 
-function mapStateToProps({ posts }, ownProps = {} ) {
-  // const postId = this.props.params.match.params.id;
-  debugger
-  const post = posts['123'];
+function mapStateToProps({ posts }, ownProps ) {
+  const post = ownProps.id ?  posts[ownProps.id] : {};
   return { post };
 }
 

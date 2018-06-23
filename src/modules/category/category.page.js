@@ -13,21 +13,20 @@ class CategoryPage extends React.Component {
     category: null,
     categories: null,
     loadingCategories: false,
-    posts: null,
-    loadingPosts: false
+    // posts: null,
+    // loadingPosts: false
   };
 
-  // TODO: replace with getDerivedStateFromProps()
-  UNSAFE_componentWillReceiveProps() {
-    const category = this.props.category.match.params.category;
-    this.setState({ category });
-    this.fetchPosts(category);
-  }
+  // // TODO: replace with getDerivedStateFromProps()
+  // UNSAFE_componentWillReceiveProps() {
+  //   const category = this.props.category.match.params.category;
+  //   this.setState({ category });
+  //   this.fetchPosts(category);
+  // }
 
   componentDidMount() {
     const category = this.props.category.match.params.category;
     this.setState({ category });
-    this.fetchPosts(category);
     fetchCategories()
       .then(categories =>
         this.setState(() => ({
@@ -36,29 +35,30 @@ class CategoryPage extends React.Component {
         }))
       )
       .catch(err => {
-        alert(err);
+        alert(`Error: ${err}. - Make sure the server are on line!`);
       });
   }
 
-  fetchPosts(category) {
-    fetchCategoryPosts(category)
-      .then(posts =>
-        this.setState(() => ({
-          posts,
-          loadingPosts: false
-        }))
-      )
-      .catch(err => {
-        alert(err);
-      });
-  }
+  // fetchPosts(category) {
+  //   fetchCategoryPosts(category)
+  //     .then(posts =>
+  //       this.setState(() => ({
+  //         posts,
+  //         loadingPosts: false
+  //       }))
+  //     )
+  //     .catch(err => {
+  //       alert(err);
+  //     });
+  // }
 
-  componentWillUnmount() {
-    this.setState(() => ({}));
-  }
+  // componentWillUnmount() {
+  //   this.setState(() => ({}));
+  // }
 
   render() {
-    const { category, categories, posts } = this.state;
+    const { categories } = this.state;
+    const category = this.props.category.match.params.category;
 
     return (
       <div>
@@ -69,7 +69,7 @@ class CategoryPage extends React.Component {
               <Categories categories={categories} />
             </Box>
             <Box px={2} ml='25%' w={5 / 6}>
-              <Posts category={category} posts={posts} />
+              <Posts category={category} />
             </Box>
           </Flex>
         </div>

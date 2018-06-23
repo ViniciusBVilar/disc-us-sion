@@ -132,7 +132,7 @@ class Statusbar extends React.Component {
           </Box>
           <Box px={2} w={1 / 4}>
             {isPost && (
-              <Link to={`/${category}/${id}`}>
+              <Link to={`/post/${category}/${id}`}>
                 <BlaBlaBlas size={30} />
                 <h2>BlaBlaBlas</h2>
               </Link>

@@ -12,9 +12,11 @@ export function createPost({ post }) {
 }
 
 export function editPost({ post }) {
+  const postId = post.id || '';
   return {
     type: EDIT_POST,
     post,
+    postId,
   };
 }
 

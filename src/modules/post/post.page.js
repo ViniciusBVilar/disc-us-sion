@@ -9,7 +9,7 @@ import {
   downVoteComment,
   upVoteComment } from '../../redux/actions/comments.actions';
 import '../../styles/header.css';
-import { deleteComment } from '../../data/comments.data-source';
+import { deletePost, upVotePost, downVotePost } from '../../redux/actions/post.actions';
 
 class PostPage extends React.Component {
   // likes = 122;
@@ -33,12 +33,12 @@ class PostPage extends React.Component {
   //     });
   // }
 
-  handleDeleteCommentClick = id => {
-    this.props.deleteCommentDispatch(id);
+  handleDeletePostClick = id => {
+    this.props.deletePostDispatch(id);
     this.props.deleteCommentParentDispatch(id);
   };
 
-  handleVoteCommentClick = (upVote, id) => {
+  handleVotePostClick = (upVote, id) => {
     upVote ? this.props.upVoteDispatch(id) : this.props.downVoteDispatch(id);
   }
 
@@ -47,8 +47,8 @@ class PostPage extends React.Component {
   }
   
   render() {
-    const { title, body, author, upVotes, timestamp } = this.props.post;
-    const comments = this.props.postComments || [];
+    const { title, body, author, voteScore, timestamp, deleted } = this.props.post;
+    const commentsIds = this.props.commentsIds || [];
     const { id, category } = this.props.params.match.params;
 
     return (
@@ -60,15 +60,16 @@ class PostPage extends React.Component {
             title={title}
             text={body}
             author={author}
-            fires={upVotes}
-            comments={comments.length}
+            voteScore={voteScore}
+            comments={commentsIds.length}
             createdAt={timestamp}
             category={category}
-            onDeleteCommentClick={this.handleDeleteCommentClick}
-            onVoteCommentClick={this.handleVoteCommentClick}
+            deleted={deleted}
+            onDeletePostClick={this.handleDeletePostClick}
+            onVotePostClick={this.handleVotePostClick}
             onSubmitCommentClick={this.handleSubmitCommentClick} 
           />
-          <CommentList comments={comments} />
+          <CommentList commentsIds={commentsIds} />
         </div>
       </div>
     );
@@ -77,17 +78,17 @@ class PostPage extends React.Component {
 
 function mapStateToProps({ posts, comments }, ownProps ) {
   const post = posts[ownProps.params.match.params.id];
-  const postComments = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] == [ownProps.params.match.params.id]);
-  return { post, postComments };
+  const commentsIds = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] == [ownProps.params.match.params.id]);
+  return { post, commentsIds };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     createCommentDispatch: comment => dispatch(createComment({comment})),
-    deleteCommentDispatch: postId => dispatch(deleteComment({postId})),
+    deletePostDispatch: postId => dispatch(deletePost({postId})),
     deleteCommentParentDispatch: postId => dispatch(deleteCommentParent({postId})),
-    upVoteDispatch: postId => dispatch(upVoteComment({postId})),
-    downVoteDispatch: postId => dispatch(downVoteComment({postId})),
+    upVoteDispatch: postId => dispatch(upVotePost({postId})),
+    downVoteDispatch: postId => dispatch(downVotePost({postId})),
   };
 }
 

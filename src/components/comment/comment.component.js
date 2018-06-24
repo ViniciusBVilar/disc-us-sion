@@ -6,8 +6,33 @@ import '../../styles/post.css';
 
 import Statusbar from '../shared/status-bar';
 import Toolbar from '../shared/tool-bar';
+import PropTypes from 'prop-types';
+
 
 class CommentComponent extends React.Component {
+
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    updateCallback: PropTypes.func.isRequired,
+  };
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    parentId: PropTypes.string.isRequired,
+    deleted: PropTypes.string.isRequired,
+    parentDeleted: PropTypes.bool.isRequired,
+    author: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    timestamp: PropTypes.string.isRequired,
+    voteScore: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    comments: PropTypes.string.isRequired,
+    comment: PropTypes.object.isRequired,
+    onDeleteCommentClick: PropTypes.func.isRequired,
+    onVoteCommentClick: PropTypes.func.isRequired,
+    onSubmitCommentClick: PropTypes.func.isRequired,
+  };
+  
   render() {
     const {
       id,
@@ -19,12 +44,13 @@ class CommentComponent extends React.Component {
       timestamp,
       voteScore,
       category,
+      comments,
+    } = this.props.comment;
+    const {
       onDeleteCommentClick,
       onVoteCommentClick,
-      comments,
       onSubmitCommentClick
     } = this.props;
-    debugger
     return (
       <div>
         <Flex wrap p={1} align='center'>
@@ -48,7 +74,7 @@ class CommentComponent extends React.Component {
         </Flex>
         <div className='status-bar-comment'>
           <Statusbar
-            fires={voteScore}
+            voteScore={voteScore}
             onVoteCommentClick={onVoteCommentClick}
             comments={comments}
             onSubmitCommentClick={onSubmitCommentClick}

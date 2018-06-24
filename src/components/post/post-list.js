@@ -49,7 +49,7 @@ class Posts extends React.Component {
                 text={post.body}
                 category={post.category}
                 author={post.author}
-                fires={post.voteScore}
+                voteScore={post.voteScore}
                 comments={post.commentCount}
                 createdAt={post.timestamp} 
                 deleted={post.deleted} 

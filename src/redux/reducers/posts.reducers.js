@@ -39,9 +39,12 @@ export function posts(state = initialPostsState, action) {
   const { type, post, postId } = action;
   switch (type) {
   case CREATE_POST:
+    var newPostId = `${Math.random()}|${new Date()}`;
+    var newPost = post;
+    newPost.id = newPostId;
     return {
       ...state,
-      [`${Math.random()}|${new Date()}`]: post
+      [newPostId]: newPost
     };
   case EDIT_POST:
     return {

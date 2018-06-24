@@ -3,8 +3,26 @@ import { Box, Flex } from 'reflexbox';
 import '../../styles/post.css';
 import Statusbar from '../shared/status-bar';
 import Toolbar from '../shared/tool-bar';
+import PropTypes from 'prop-types';
 
 class PostComponent extends React.Component {
+
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    voteScore: PropTypes.string.isRequired,
+    comments: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    deleted: PropTypes.bool.isRequired,
+    onDeletePostClick: PropTypes.func.isRequired,
+    onVotePostClick: PropTypes.func.isRequired,
+    onSubmitCommentClick : PropTypes.func.isRequired,
+  };
+
 
   render() {
     const {
@@ -12,7 +30,7 @@ class PostComponent extends React.Component {
       title,
       text,
       author,
-      fires,
+      voteScore,
       comments,
       createdAt,
       category,
@@ -21,7 +39,6 @@ class PostComponent extends React.Component {
       onVotePostClick,
       onSubmitCommentClick
     } = this.props;
-
     return (
       <div>
         <Flex wrap p={1} align='center'>
@@ -48,7 +65,7 @@ class PostComponent extends React.Component {
         </Flex>
         <div className='status-bar-post'>
           <Statusbar
-            fires={fires}
+            voteScore={voteScore}
             onVotePostClick={onVotePostClick}
             comments={comments}
             onSubmitCommentClick={onSubmitCommentClick}

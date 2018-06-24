@@ -25,15 +25,14 @@ class CommentList extends React.Component {
   }
 
   render() {
-    const comments = this.props.comments;
-    debugger
+    const comments = this.props.postComments;
     return (
       <div>
         {comments &&
-          Object.keys(comments).map(commentId => (
+          comments.map((comment, index) => (
             <CommentComponent
-              key={comments[commentId].id}
-              comment={comments[commentId]} 
+              key={index}
+              comment={comment} 
               onDeleteCommentClick={this.handleDeleteCommentClick}
               onVoteCommentClick={this.handleVoteCommentClick}
               onSubmitCommentClick={this.handleSubmitCommentClick} 
@@ -45,9 +44,10 @@ class CommentList extends React.Component {
 }
 
 
-// function mapStateToProps({ posts }) {
-//   return { posts };
-// }
+function mapStateToProps({ comments }, ownProps) {
+  const postComments = ownProps.commentsIds && ownProps.commentsIds.map(commentId => comments[commentId]);
+  return { postComments };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -60,6 +60,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CommentList);

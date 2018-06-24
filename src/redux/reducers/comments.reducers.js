@@ -15,7 +15,7 @@ import {
 // author - String
 // category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 
-const initialPostsState = {
+const initialCommentsState = {
   'aaa': {
     parentId: '123',
     timestamp: new Date(),
@@ -35,16 +35,29 @@ const initialPostsState = {
     voteScore: 21,
     deleted: false,
     parentDeleted: false,
+  },
+  '214': {
+    parentId: '124',
+    timestamp: new Date(),
+    title: 'aaa_aaa_aaaa',
+    body: 'baaa-aaa-vv-',
+    author: 'caaa-aaavv',
+    voteScore: 21,
+    deleted: false,
+    parentDeleted: false,
   }
 };
 
-export function comments(state = initialPostsState, action) {
+export function comments(state = initialCommentsState, action) {
   const { type, comment, commentId } = action;
   switch (type) {
   case CREATE_COMMENT:
+    var newCommentId = `${Math.random()}|${new Date()}`;
+    var newComment = comment;
+    newComment.id = newCommentId;
     return {
       ...state,
-      [`${Math.random()}|${new Date()}`]: comment
+      [newCommentId]: newComment
     };
   case EDIT_COMMENT:
     return {

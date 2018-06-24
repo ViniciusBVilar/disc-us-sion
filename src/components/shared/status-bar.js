@@ -106,23 +106,27 @@ class Statusbar extends React.Component {
 
   render() {
     const { isPost, modalOpen } = this.state;
-    const { id, fires, comments, category } = this.props;
-
+    const { id, voteScore, comments, category } = this.props;
+debugger
     return (
       <div>
-        <Flex p={1} align='center'>
-          <Box px={2} w={1 / 4}>
+        <Flex p={1} align='center' justify='space-between'>
+          <Box px={2} w={1 / 8}>
+            <h2>{voteScore} Votes</h2>
+          </Box>
+          <Box px={2} w={1 / 8}>
             <button onClick={this.upVote} className='icon-btn'>
               <SetFire size={30} />
-              <h2>{fires} fires</h2>
+              <h2>Up Vote</h2>
             </button>
           </Box>
-          <Box px={2} w={1 / 4}>
+          <Box px={2} w={1 / 8}>
             <button onClick={this.downVote} className='icon-btn'>
               <Cut size={30} />
+              <h2>Down Vote</h2>
             </button>
           </Box>
-          <Box px={2} w={1 / 4}>
+          <Box px={2} w={3 / 8}>
             {isPost && (
               <button onClick={this.openModal} className='icon-btn'>
                 <Bullhorn size={30} />
@@ -130,7 +134,7 @@ class Statusbar extends React.Component {
               </button>
             )}
           </Box>
-          <Box px={2} w={1 / 4}>
+          <Box px={2} w={2 / 8}>
             {isPost && (
               <Link to={`/post/${category}/${id}`}>
                 <BlaBlaBlas size={30} />

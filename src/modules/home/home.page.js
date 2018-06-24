@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Flex } from 'reflexbox';
-import Posts from '../../components/post/posts';
+import Posts from '../../components/post/post-list';
 import Categories from '../../components/shared/categories';
 import Header from '../../components/shared/header';
 import { fetchCategories } from '../../data/categories.data-source';
@@ -15,8 +15,6 @@ class HomePage extends React.Component {
     // loadingPosts: false
   };
 
-  // posts = ['s', 's', 's'];
-
   componentDidMount() {
     fetchCategories()
       .then(categories =>
@@ -25,7 +23,7 @@ class HomePage extends React.Component {
           loadingCategories: false
         }))
       )
-      .catch(err => alert(`Error: ${err}. - Make sure the server are on line!`));
+      .catch(err => alert(`Error: ${err}. - Make sure the server is on line!`));
   }
 
   //   fetchAllPosts()

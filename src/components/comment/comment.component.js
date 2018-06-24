@@ -3,10 +3,11 @@ import { Box, Flex } from 'reflexbox';
 import CommentSeparator from './comment-separator';
 import '../../styles/comment.css';
 import '../../styles/post.css';
+
 import Statusbar from '../shared/status-bar';
 import Toolbar from '../shared/tool-bar';
 
-class Comment extends React.Component {
+class CommentComponent extends React.Component {
   render() {
     const {
       id,
@@ -17,9 +18,13 @@ class Comment extends React.Component {
       body,
       timestamp,
       voteScore,
-      category
-    } = this.props.comment;
-
+      category,
+      onDeleteCommentClick,
+      onVoteCommentClick,
+      comments,
+      onSubmitCommentClick
+    } = this.props;
+    debugger
     return (
       <div>
         <Flex wrap p={1} align='center'>
@@ -33,6 +38,7 @@ class Comment extends React.Component {
                 category={category}
                 createdAt={timestamp}
                 isPost={false}
+                onClick={onDeleteCommentClick}
               />
             </Box>
           </Flex>
@@ -43,6 +49,9 @@ class Comment extends React.Component {
         <div className='status-bar-comment'>
           <Statusbar
             fires={voteScore}
+            onVoteCommentClick={onVoteCommentClick}
+            comments={comments}
+            onSubmitCommentClick={onSubmitCommentClick}
             id={id}
             category={category}
             isPost={false}
@@ -55,4 +64,4 @@ class Comment extends React.Component {
   }
 }
 
-export default Comment;
+export default CommentComponent;

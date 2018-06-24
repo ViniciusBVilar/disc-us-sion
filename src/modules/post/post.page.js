@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import CommentList from '../../components/comment/comment-list';
 import PostComponent from '../../components/post/post.component';
 import Header from '../../components/shared/header';
-import { createPost, editPost } from '../../redux/actions/post.actions';
+import {
+  createComment,
+  deleteCommentParent,
+  downVoteComment,
+  upVoteComment } from '../../redux/actions/comments.actions';
 import '../../styles/header.css';
+import { deleteComment } from '../../data/comments.data-source';
 
 class PostPage extends React.Component {
   // likes = 122;
@@ -28,10 +33,22 @@ class PostPage extends React.Component {
   //     });
   // }
 
+  handleDeleteCommentClick = id => {
+    this.props.deleteCommentDispatch(id);
+    this.props.deleteCommentParentDispatch(id);
+  };
+
+  handleVoteCommentClick = (upVote, id) => {
+    upVote ? this.props.upVoteDispatch(id) : this.props.downVoteDispatch(id);
+  }
+
+  handleSubmitCommentClick = comment => {
+    this.props.createCommentDispatch(comment);
+  }
   
   render() {
     const { title, body, author, upVotes, timestamp } = this.props.post;
-    const comments = this.props.comments || [];
+    const comments = this.props.postComments || [];
     const { id, category } = this.props.params.match.params;
 
     return (
@@ -47,6 +64,9 @@ class PostPage extends React.Component {
             comments={comments.length}
             createdAt={timestamp}
             category={category}
+            onDeleteCommentClick={this.handleDeleteCommentClick}
+            onVoteCommentClick={this.handleVoteCommentClick}
+            onSubmitCommentClick={this.handleSubmitCommentClick} 
           />
           <CommentList comments={comments} />
         </div>
@@ -55,16 +75,19 @@ class PostPage extends React.Component {
   }
 }
 
-function mapStateToProps({ posts }, ownProps = {} ) {
-  // const postId = this.props.params.match.params.id;
-  const post = posts['123'];
-  return { post };
+function mapStateToProps({ posts, comments }, ownProps ) {
+  const post = posts[ownProps.params.match.params.id];
+  const postComments = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] == [ownProps.params.match.params.id]);
+  return { post, postComments };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createPostDispatch: post => dispatch(createPost({post})),
-    editPostDispatch: post => dispatch(editPost({post})),
+    createCommentDispatch: comment => dispatch(createComment({comment})),
+    deleteCommentDispatch: postId => dispatch(deleteComment({postId})),
+    deleteCommentParentDispatch: postId => dispatch(deleteCommentParent({postId})),
+    upVoteDispatch: postId => dispatch(upVoteComment({postId})),
+    downVoteDispatch: postId => dispatch(downVoteComment({postId})),
   };
 }
 

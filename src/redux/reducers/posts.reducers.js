@@ -20,7 +20,7 @@ const initialPostsState = {
     title: 'a',
     body: 'b',
     author: 'c',
-    category: 'f',
+    category: 'react',
     voteScore: 21,
     deleted: false,
   },

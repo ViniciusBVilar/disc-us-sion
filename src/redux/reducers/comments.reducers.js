@@ -16,12 +16,22 @@ import {
 // category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 
 const initialPostsState = {
-  '123': {
+  'aaa': {
     parentId: '123',
-    timestamp: '123',
-    title: 'a',
-    body: 'b',
-    author: 'c',
+    timestamp: new Date(),
+    title: 'aaa_aaa_aaaa',
+    body: 'baaa-aaa-vv-',
+    author: 'caaa-aaavv',
+    voteScore: 21,
+    deleted: false,
+    parentDeleted: false,
+  },
+  '213': {
+    parentId: '123',
+    timestamp: new Date(),
+    title: 'aaa_aaa_aaaa',
+    body: 'baaa-aaa-vv-',
+    author: 'caaa-aaavv',
     voteScore: 21,
     deleted: false,
     parentDeleted: false,

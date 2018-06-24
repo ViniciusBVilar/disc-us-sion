@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createPost, editPost } from '../../redux/actions/post.actions';
 import '../../styles/form.css';
 
-const DEFAULT_CATEGORY = 'All categories';
+export const DEFAULT_CATEGORY = 'All Categories';
 class PostFormComponent extends React.Component {
 
   validate = username => !username || username.trim() === '' ? 'Username is a required field' : null

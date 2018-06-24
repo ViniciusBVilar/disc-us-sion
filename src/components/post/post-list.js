@@ -7,6 +7,7 @@ import '../../styles/home.css';
 import { connect } from 'react-redux';
 import { deletePost, upVotePost, downVotePost } from '../../redux/actions/post.actions';
 import { deleteCommentParent, createComment } from '../../redux/actions/comments.actions';
+import { DEFAULT_CATEGORY } from './post-form.component';
 
 class Posts extends React.Component {
   
@@ -23,12 +24,20 @@ class Posts extends React.Component {
     this.props.createCommentDispatch(comment);
   }
 
+  handleFilter = filter => {
+    // var posts = this.props && this.props.posts ? this.props.posts.map(post => post) : [];
+    // posts.sort((a, b) => {return a === this.props.category});
+    alert(filter);
+    // TODO; order here
+    this.setState({ filter });
+  }
+
   render() {
     const { category, posts }= this.props;
 
     return (
       <div>
-        <PostsHeader title={category} />
+        <PostsHeader title={category} onFilter={this.handleFilter}/>
         {posts && Object.keys(posts).map((key, index) => {
           const post = posts[key];
           return (
@@ -56,8 +65,12 @@ class Posts extends React.Component {
 
 }
 
-function mapStateToProps({ posts }) {
-  return { posts };
+function mapStateToProps({ posts }, ownProps) {
+  if(!ownProps.category || ownProps.category == DEFAULT_CATEGORY) { 
+    return { posts }; 
+  }
+  const filteredPosts = Object.keys(posts).filter(postId => posts[postId].category === ownProps.category);
+  return {posts: filteredPosts};
 }
 
 function mapDispatchToProps(dispatch) {

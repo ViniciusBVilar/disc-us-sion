@@ -2,9 +2,8 @@ import React from 'react';
 import { Box, Flex } from 'reflexbox';
 import Categories from '../../components/shared/categories';
 import Header from '../../components/shared/header';
-import Posts from '../../components/post/posts';
+import Posts from '../../components/post/post-list';
 import { fetchCategories } from '../../data/categories.data-source';
-import { fetchCategoryPosts } from '../../data/posts.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 

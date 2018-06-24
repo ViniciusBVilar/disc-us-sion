@@ -10,8 +10,21 @@ import {
   upVoteComment } from '../../redux/actions/comments.actions';
 import '../../styles/header.css';
 import { deletePost, upVotePost, downVotePost } from '../../redux/actions/post.actions';
+import PropTypes from 'prop-types';
 
 class PostPage extends React.Component {
+
+  static propTypes = {
+    deletePostDispatch: PropTypes.func.isRequired,
+    deleteCommentParentDispatch: PropTypes.func.isRequired,
+    upVoteDispatch: PropTypes.func.isRequired,
+    downVoteDispatch: PropTypes.func.isRequired,
+    createCommentDispatch: PropTypes.func.isRequired,
+    post: PropTypes.object.isRequired,
+    commentsIds: PropTypes.array.isRequired,
+    params: PropTypes.object.isRequired,
+  };
+
   // likes = 122;
   // state = {
   //   details: {},

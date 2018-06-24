@@ -1,31 +1,33 @@
 import React from 'react';
-import { deleteComment } from '../../data/comments.data-source';
 import {
-  createComment,
-  deleteCommentParent,
   downVoteComment,
-  upVoteComment } from '../../redux/actions/comments.actions';
+  upVoteComment, 
+  editComment,
+  deleteComment} from '../../redux/actions/comments.actions';
 import CommentComponent from './comment.component';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class CommentList extends React.Component {
 
-    
+  static propTypes = {
+    deleteCommentDispatch: PropTypes.func.isRequired,
+    upVoteCommentDispatch: PropTypes.func.isRequired,
+    downVoteCommentDispatch: PropTypes.func.isRequired,
+    postComments: PropTypes.array.isRequired,
+  };
+
   handleDeleteCommentClick = id => {
     this.props.deleteCommentDispatch(id);
-    this.props.deleteCommentParentDispatch(id);
   };
 
   handleVoteCommentClick = (upVote, id) => {
-    upVote ? this.props.upVoteDispatch(id) : this.props.downVoteDispatch(id);
-  }
-
-  handleSubmitCommentClick = comment => {
-    this.props.createCommentDispatch(comment);
+    upVote ? this.props.upVoteCommentDispatch(id) : this.props.downVoteCommentDispatch(id);
   }
 
   render() {
     const comments = this.props.postComments;
+
     return (
       <div>
         {comments &&
@@ -51,11 +53,10 @@ function mapStateToProps({ comments }, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCommentDispatch: comment => dispatch(createComment({comment})),
-    deleteCommentDispatch: postId => dispatch(deleteComment({postId})),
-    deleteCommentParentDispatch: postId => dispatch(deleteCommentParent({postId})),
-    upVoteDispatch: postId => dispatch(upVoteComment({postId})),
-    downVoteDispatch: postId => dispatch(downVoteComment({postId})),
+    editDispatch: comment => dispatch(editComment({ comment })),
+    deleteCommentDispatch: commentId => dispatch(deleteComment({ commentId })),
+    upVoteCommentDispatch: commentId => dispatch(upVoteComment({ commentId })),
+    downVoteCommentDispatch: commentId => dispatch(downVoteComment({ commentId })),
   };
 }
 

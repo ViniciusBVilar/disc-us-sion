@@ -23,7 +23,6 @@ class PostComponent extends React.Component {
     onSubmitCommentClick : PropTypes.func.isRequired,
   };
 
-
   render() {
     const {
       id,

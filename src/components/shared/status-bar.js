@@ -8,12 +8,6 @@ import Modal from 'react-modal';
 import { Box, Flex } from 'reflexbox';
 import '../../styles/modal.css';
 import { Link } from 'react-router-dom';
-import { votePost } from '../../data/posts.data-source';
-import {
-  comment,
-  voteComment,
-  editComment
-} from '../../data/comments.data-source';
 
 // const UP_VOTE = 'upVote';
 // const DOWN_VOTE = 'downVote';
@@ -76,7 +70,7 @@ class Statusbar extends React.Component {
   };
 
   vote = (up = false) => {
-    this.props.onVotePostClick(up, this.props.id);
+    this.props.onVoteClick(up, this.props.id);
   }
   // vote = (up = false) => {
   //   const id = this.props.id;
@@ -107,7 +101,7 @@ class Statusbar extends React.Component {
   render() {
     const { isPost, modalOpen } = this.state;
     const { id, voteScore, comments, category } = this.props;
-debugger
+
     return (
       <div>
         <Flex p={1} align='center' justify='space-between'>

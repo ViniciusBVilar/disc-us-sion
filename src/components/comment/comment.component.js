@@ -8,7 +8,6 @@ import Statusbar from '../shared/status-bar';
 import Toolbar from '../shared/tool-bar';
 import PropTypes from 'prop-types';
 
-
 class CommentComponent extends React.Component {
 
   static propTypes = {
@@ -51,12 +50,14 @@ class CommentComponent extends React.Component {
       onVoteCommentClick,
       onSubmitCommentClick
     } = this.props;
+
     return (
       <div>
         <Flex wrap p={1} align='center'>
           <Flex p={1} align='center'>
             <Box px={2} w={3 / 4}>
-              <h1>{body}</h1>
+              {parentDeleted && <h1>{`PARENT_DELETED - parentId: ${parentId}`}</h1>}
+              {deleted ? <h1>{`DELETED - ${body}`}</h1> : <h1>{body}</h1>}
             </Box>
             <Box px={2} w={1 / 4}>
               <Toolbar
@@ -75,7 +76,7 @@ class CommentComponent extends React.Component {
         <div className='status-bar-comment'>
           <Statusbar
             voteScore={voteScore}
-            onVoteCommentClick={onVoteCommentClick}
+            onVoteClick={onVoteCommentClick}
             comments={comments}
             onSubmitCommentClick={onSubmitCommentClick}
             id={id}

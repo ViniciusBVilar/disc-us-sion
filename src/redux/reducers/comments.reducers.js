@@ -17,6 +17,7 @@ import {
 
 const initialCommentsState = {
   'aaa': {
+    id: 'aaa',
     parentId: '123',
     timestamp: new Date(),
     title: 'aaa_aaa_aaaa',
@@ -27,6 +28,7 @@ const initialCommentsState = {
     parentDeleted: false,
   },
   '213': {
+    id: '213',
     parentId: '123',
     timestamp: new Date(),
     title: 'aaa_aaa_aaaa',
@@ -37,6 +39,7 @@ const initialCommentsState = {
     parentDeleted: false,
   },
   '214': {
+    id: '214',
     parentId: '124',
     timestamp: new Date(),
     title: 'aaa_aaa_aaaa',

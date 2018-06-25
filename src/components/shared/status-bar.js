@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import { Box, Flex } from 'reflexbox';
 import '../../styles/modal.css';
 import { Link } from 'react-router-dom';
+import CommentModal from './comment.modal';
 
 // const UP_VOTE = 'upVote';
 // const DOWN_VOTE = 'downVote';
@@ -137,30 +138,11 @@ class Statusbar extends React.Component {
             )}
           </Box>
         </Flex>
-        <Modal
-          className='modal'
-          overlayClassName='overlay'
-          isOpen={modalOpen}
-          onRequestClose={this.closeModal}
-          contentLabel='Modal'
-        >
-          <Form
-            className='form'
-            onSubmit={submittedValues => this.addComment(submittedValues)}
-          >
-            {formApi => (
-              <form onSubmit={formApi.submitForm} id='form2'>
-                <label htmlFor='text'>Text</label>
-                <TextArea field='text' id='text' />
-                <label htmlFor='author'>Author</label>
-                <Text field='author' id='author' />
-                <button className='icon-btn btn btn-primary' type='submit'>
-                  <Bullhorn size={30} />
-                </button>
-              </form>
-            )}
-          </Form>
-        </Modal>
+
+        <CommentModal
+          modalOpen={modalOpen}
+          onCloseModal={this.closeModal}
+          onPostComment={this.addComment}/>
       </div>
     );
   }

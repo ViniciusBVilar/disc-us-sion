@@ -28,8 +28,6 @@ class PostFormComponent extends React.Component {
     const data = {
       ...submittedValues,
       id: this.props.id,
-      timestamp: new Date(),
-      category: this.props.category|| DEFAULT_CATEGORY,
     };
     this.props.editPostDispatch(data);
     // TODO: Verificar sucesso e go back

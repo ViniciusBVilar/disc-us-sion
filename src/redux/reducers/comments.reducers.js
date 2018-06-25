@@ -58,6 +58,9 @@ export function comments(state = initialCommentsState, action) {
     var newCommentId = `${Math.random()}|${new Date()}`;
     var newComment = comment;
     newComment.id = newCommentId;
+    newComment.voteScore = 0;
+    newComment.deleted = false;
+    newComment.parentDeleted = false;
     return {
       ...state,
       [newCommentId]: newComment

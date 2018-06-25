@@ -27,6 +27,7 @@ class CommentComponent extends React.Component {
     category: PropTypes.string.isRequired,
     comments: PropTypes.string.isRequired,
     comment: PropTypes.object.isRequired,
+    onEditCommentClick: PropTypes.func.isRequired,
     onDeleteCommentClick: PropTypes.func.isRequired,
     onVoteCommentClick: PropTypes.func.isRequired,
     onSubmitCommentClick: PropTypes.func.isRequired,
@@ -46,9 +47,10 @@ class CommentComponent extends React.Component {
       comments,
     } = this.props.comment;
     const {
+      onEditCommentClick,
       onDeleteCommentClick,
       onVoteCommentClick,
-      onSubmitCommentClick
+      onSubmitCommentClick,
     } = this.props;
 
     return (
@@ -56,21 +58,24 @@ class CommentComponent extends React.Component {
         <Flex wrap p={1} align='center'>
           <Flex p={1} align='center'>
             <Box px={2} w={3 / 4}>
-              {parentDeleted && <h1>{`PARENT_DELETED - parentId: ${parentId}`}</h1>}
-              {deleted ? <h1>{`DELETED - ${body}`}</h1> : <h1>{body}</h1>}
+              {parentDeleted && <h4>{`PARENT_DELETED - parentId: ${parentId}`}</h4>}
+              {deleted ? <h4>{`DELETED - ${body}`}</h4> : <h4>{body}</h4>}
             </Box>
             <Box px={2} w={1 / 4}>
               <Toolbar
                 id={id}
+                body={body}
+                author={author}
                 category={category}
                 createdAt={timestamp}
                 isPost={false}
                 onClick={onDeleteCommentClick}
+                onEditComment={onEditCommentClick}
               />
             </Box>
           </Flex>
           <Box px={2} w={1}>
-            <p>{author}</p>
+            <p>{`Autor: ${author}`}</p>
           </Box>
         </Flex>
         <div className='status-bar-comment'>

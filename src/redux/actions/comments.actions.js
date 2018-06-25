@@ -13,9 +13,11 @@ export function createComment({ comment }) {
 }
 
 export function editComment({ comment }) {
+  const commentId = comment.id || '';
   return {
     type: EDIT_COMMENT,
     comment,
+    commentId,
   };
 }
 

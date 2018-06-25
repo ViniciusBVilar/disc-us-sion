@@ -43,7 +43,7 @@ class PostComponent extends React.Component {
         <Flex wrap p={1} align='center'>
           <Flex p={1} align='center'>
             <Box px={2} w={3 / 4}>
-              {deleted ? <h1>{`DELETED - ${title}`}</h1> : <h1>{title}</h1>}
+              {deleted ? <h1>{`DELETED - Título: ${title}`}</h1> : <h1>{`Título: ${title}`}</h1>}
             </Box>
             <Box px={2} w={1 / 4}>
               <Toolbar
@@ -59,13 +59,13 @@ class PostComponent extends React.Component {
             <h4>{text}</h4>
           </Box>
           <Box px={2} w={1}>
-            <p>{author}</p>
+            <p>{`Autor: ${author}`}</p>
           </Box>
         </Flex>
         <div className='status-bar-post'>
           <Statusbar
             voteScore={voteScore}
-            onVotePostClick={onVotePostClick}
+            onVoteClick={onVotePostClick}
             comments={comments}
             onSubmitCommentClick={onSubmitCommentClick}
             id={id}

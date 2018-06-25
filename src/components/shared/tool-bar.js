@@ -1,12 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Flex } from 'reflexbox';
-import { deletePost } from '../../data/posts.data-source';
+import CommentModal from './comment.modal';
 
 class Toolbar extends React.Component {
 
+  state = {
+    closeModal: false,
+  }
+
+  openModal = () => {
+    this.setState(() => ({
+      modalOpen: true
+    }));
+  };
+
+  handleCloseModal = () => {
+    this.setState(() => ({
+      modalOpen: false
+    }));
+  };
+
+  handlePostComment = (submittedValues, id) => {
+    this.setState(() => ({
+      modalOpen: false
+    }));
+
+    this.props.onEditComment(submittedValues, id)
+  };
+
   render() {
-    const { id, category, createdAt, onClick } = this.props;
+    const { id, body, author, category, createdAt, isPost, onClick } = this.props;
 
     return (
       <Flex p={2} align='center'>
@@ -14,15 +38,26 @@ class Toolbar extends React.Component {
           {new Date(createdAt).toString()}
         </Box>
         <Box px={2} w={1 / 5}>
-          <Link to={`/editForm/${category}${id ? `/${id}` : ''}`}>
+          {isPost ? <Link to={`/editForm/${category}${id ? `/${id}` : ''}`}>
             <p>Editar</p>
           </Link>
+            : <button onClick={this.openModal}>
+              <h2>Editar</h2>
+            </button>}
         </Box>
         <Box px={2} w={1 / 5}>
           <button onClick={() => onClick(id)}>
-            <h2>Delete</h2>
+            <h2>Deletar</h2>
           </button>
         </Box>
+
+        <CommentModal
+          id={id}
+          body={body}
+          author={author}
+          modalOpen={this.state.modalOpen}
+          onCloseModal={this.handleCloseModal}
+          onPostComment={this.handlePostComment}/>
       </Flex>
     );
   }

@@ -11,10 +11,19 @@ import PropTypes from 'prop-types';
 class CommentList extends React.Component {
 
   static propTypes = {
+    editCommentDispatch: PropTypes.func.isRequired,
     deleteCommentDispatch: PropTypes.func.isRequired,
     upVoteCommentDispatch: PropTypes.func.isRequired,
     downVoteCommentDispatch: PropTypes.func.isRequired,
     postComments: PropTypes.array.isRequired,
+  };
+
+  handleEditCommentClick = (comment, id) => {
+    const data = {
+      ...comment,
+      id,
+    };
+    this.props.editCommentDispatch(data);
   };
 
   handleDeleteCommentClick = id => {
@@ -35,6 +44,7 @@ class CommentList extends React.Component {
             <CommentComponent
               key={index}
               comment={comment} 
+              onEditCommentClick={this.handleEditCommentClick}
               onDeleteCommentClick={this.handleDeleteCommentClick}
               onVoteCommentClick={this.handleVoteCommentClick}
               onSubmitCommentClick={this.handleSubmitCommentClick} 
@@ -53,7 +63,7 @@ function mapStateToProps({ comments }, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editDispatch: comment => dispatch(editComment({ comment })),
+    editCommentDispatch: comment => dispatch(editComment({ comment })),
     deleteCommentDispatch: commentId => dispatch(deleteComment({ commentId })),
     upVoteCommentDispatch: commentId => dispatch(upVoteComment({ commentId })),
     downVoteCommentDispatch: commentId => dispatch(downVoteComment({ commentId })),

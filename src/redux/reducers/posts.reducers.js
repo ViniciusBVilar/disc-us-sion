@@ -42,6 +42,8 @@ export function posts(state = initialPostsState, action) {
     var newPostId = `${Math.random()}|${new Date()}`;
     var newPost = post;
     newPost.id = newPostId;
+    newPost.voteScore = 0;
+    newPost.deleted = false;
     return {
       ...state,
       [newPostId]: newPost

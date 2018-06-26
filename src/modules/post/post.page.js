@@ -1,16 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import CommentList from '../../components/comment/comment-list';
 import PostComponent from '../../components/post/post.component';
 import Header from '../../components/shared/header';
-import {
-  createComment,
-  deleteCommentParent,
-  downVoteComment,
-  upVoteComment } from '../../redux/actions/comments.actions';
+import { createComment, deleteCommentParent } from '../../redux/actions/comments.actions';
+import { deletePost, downVotePost, upVotePost } from '../../redux/actions/post.actions';
 import '../../styles/header.css';
-import { deletePost, upVotePost, downVotePost } from '../../redux/actions/post.actions';
-import PropTypes from 'prop-types';
 
 class PostPage extends React.Component {
 
@@ -68,20 +64,24 @@ class PostPage extends React.Component {
       <div>
         <Header title={'The Bomb'} />
         <div className='header-offset'>
-          <PostComponent
-            id={id}
-            title={title}
-            text={body}
-            author={author}
-            voteScore={voteScore}
-            comments={commentsIds.length}
-            createdAt={timestamp}
-            category={category}
-            deleted={deleted}
-            onDeletePostClick={this.handleDeletePostClick}
-            onVotePostClick={this.handleVotePostClick}
-            onSubmitCommentClick={this.handleSubmitCommentClick} 
-          />
+          {deleted ? (
+            <div className='status-bar-post'>
+              <h1> Bomb has been defused!</h1>
+            </div>) 
+            : (<PostComponent
+              id={id}
+              title={title}
+              text={body}
+              author={author}
+              voteScore={voteScore}
+              comments={commentsIds.length}
+              createdAt={timestamp}
+              category={category}
+              deleted={deleted}
+              onDeletePostClick={this.handleDeletePostClick}
+              onVotePostClick={this.handleVotePostClick}
+              onSubmitCommentClick={this.handleSubmitCommentClick} 
+            />)}
           <CommentList commentsIds={commentsIds} />
         </div>
       </div>

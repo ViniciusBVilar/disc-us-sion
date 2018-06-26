@@ -16,6 +16,7 @@ import {
 
 const initialPostsState = {
   '123': {
+    id: '123',
     timestamp: '123',
     title: 'a',
     body: 'b',
@@ -25,6 +26,7 @@ const initialPostsState = {
     deleted: false,
   },
   '124': {
+    id: '124',
     timestamp: '124',
     title: 'a1',
     body: 'b1',

@@ -38,9 +38,12 @@ class PostFormComponent extends React.Component {
   }
 
   render() {
-    const { title, body, author } = this.state || this.props.post || {};
-    return (
-      <Form className="form" onSubmit={this.handleSubmit}>
+    const { title, body, author, deleted } = this.state || this.props.post || {};
+    return deleted ? (
+      <div className='status-bar-post'>
+        <h1> Sir, the bomb has been defused.</h1>
+      </div>) 
+      : (<Form className="form" onSubmit={this.handleSubmit}>
         {formApi => (
           <form onSubmit={formApi.submitForm} id="form2">
             <label htmlFor="title">Title</label>
@@ -57,8 +60,7 @@ class PostFormComponent extends React.Component {
             </button>
           </form>
         )}
-      </Form>
-    );
+      </Form>);
   }
 }
 

@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 class PostComponent extends React.Component {
 
   static propTypes = {
-    name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
@@ -38,6 +37,7 @@ class PostComponent extends React.Component {
       onVotePostClick,
       onSubmitCommentClick
     } = this.props;
+
     return (
       <div>
         <Flex wrap p={1} align='center'>

@@ -28,3 +28,18 @@
 .header-offset {
   margin-top: 5rem;
 }
+
+.back-search {
+  display: block;
+  top: 20px;
+  left: 15px;
+  width: 50px;
+  height: auto;
+  background: #0bbbca;
+  background-image: url('../assets/icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  border-bottom: 1px solid #dedede;
+  font-size: 0;
+}

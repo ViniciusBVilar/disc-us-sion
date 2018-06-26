@@ -50,6 +50,7 @@ class PostFormPage extends React.Component {
 
   render() {
     const { category, id } = this.props.params.match.params;
+
     return (
       <div>
         <Header title={'Plant the Bomb'} />

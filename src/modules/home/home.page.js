@@ -7,6 +7,9 @@ import { fetchCategories } from '../../data/categories.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 
+export const APP_NAME = 'ikˈsplōZHən';
+export const ALL_CATEGORIES = 'All Categories';
+
 class HomePage extends React.Component {
   state = {
     categories: null,
@@ -42,14 +45,14 @@ class HomePage extends React.Component {
     const { categories } = this.state;
     return (
       <div>
-        <Header title={'DiscUSsion'} />
+        <Header title={APP_NAME} />
         <div className='header-offset'>
           <Flex p={1} align='center'>
             <Box className='categories' px={2} w={1 / 6}>
               <Categories categories={categories}/>
             </Box>
             <Box px={2} ml='25%' w={5 / 6}>
-              <Posts category='All Categories'/>
+              <Posts category={ALL_CATEGORIES}/>
             </Box>
           </Flex>
         </div>

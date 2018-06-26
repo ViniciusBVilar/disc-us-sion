@@ -6,6 +6,7 @@ import Posts from '../../components/post/post-list';
 import { fetchCategories } from '../../data/categories.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
+import { APP_NAME } from '../home/home.page';
 
 class CategoryPage extends React.Component {
   state = {
@@ -61,7 +62,7 @@ class CategoryPage extends React.Component {
 
     return (
       <div>
-        <Header title={'DiscUSsion'} />
+        <Header title={APP_NAME} />
         <div className='header-offset'>
           <Flex p={1} align='center'>
             <Box className='categories' px={2} w={1 / 6}>

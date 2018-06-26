@@ -17,6 +17,7 @@ class PostComponent extends React.Component {
     createdAt: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     deleted: PropTypes.bool.isRequired,
+    isDetail: PropTypes.bool.isRequired,
     onDeletePostClick: PropTypes.func.isRequired,
     onVotePostClick: PropTypes.func.isRequired,
     onSubmitCommentClick : PropTypes.func.isRequired,
@@ -35,15 +36,15 @@ class PostComponent extends React.Component {
       deleted,
       onDeletePostClick,
       onVotePostClick,
-      onSubmitCommentClick
+      onSubmitCommentClick,
+      isDetail,
     } = this.props;
-
     return (
       <div>
         <Flex wrap p={1} align='center'>
           <Flex p={1} align='center'>
             <Box px={2} w={3 / 4}>
-              {deleted ? <h1>{`DELETED - Título: ${title}`}</h1> : <h1>{`Título: ${title}`}</h1>}
+              {deleted ? <h1>{`DELETED - Title: ${title}`}</h1> : <h1>{`Title: ${title}`}</h1>}
             </Box>
             <Box px={2} w={1 / 4}>
               <Toolbar
@@ -59,7 +60,7 @@ class PostComponent extends React.Component {
             <h4>{text}</h4>
           </Box>
           <Box px={2} w={1}>
-            <p>{`Autor: ${author}`}</p>
+            <p>{`Author: ${author}`}</p>
           </Box>
         </Flex>
         <div className='status-bar-post'>
@@ -71,6 +72,7 @@ class PostComponent extends React.Component {
             id={id}
             category={category}
             isPost={true}
+            isDetail={isDetail}
           />
         </div>
       </div>

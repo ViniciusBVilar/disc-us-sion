@@ -78,6 +78,7 @@ class PostPage extends React.Component {
               createdAt={timestamp}
               category={category}
               deleted={deleted}
+              isDetail={true}
               onDeletePostClick={this.handleDeletePostClick}
               onVotePostClick={this.handleVotePostClick}
               onSubmitCommentClick={this.handleSubmitCommentClick} 

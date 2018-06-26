@@ -17,7 +17,7 @@ import {
 const initialPostsState = {
   '123': {
     id: '123',
-    timestamp: '123',
+    timestamp: `${new Date(220200000)}`,
     title: 'a',
     body: 'b',
     author: 'c',
@@ -27,7 +27,17 @@ const initialPostsState = {
   },
   '124': {
     id: '124',
-    timestamp: '124',
+    timestamp: `${new Date(99999999999)}`,
+    title: 'a',
+    body: 'b',
+    author: 'c',
+    category: 'react',
+    voteScore: 21,
+    deleted: false,
+  },
+  '125': {
+    id: '125',
+    timestamp: `${new Date()}`,
     title: 'a1',
     body: 'b1',
     author: 'c1',

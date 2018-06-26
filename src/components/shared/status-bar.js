@@ -1,13 +1,12 @@
 import React from 'react';
-import { Form, TextArea, Text } from 'react-form';
-import BlaBlaBlas from 'react-icons/lib/fa/hand-lizard-o';
 import Bullhorn from 'react-icons/lib/fa/bullhorn';
 import Cut from 'react-icons/lib/fa/cut';
 import SetFire from 'react-icons/lib/fa/fire';
+import BlaBlaBlas from 'react-icons/lib/fa/hand-lizard-o';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import { Box, Flex } from 'reflexbox';
 import '../../styles/modal.css';
-import { Link } from 'react-router-dom';
 import CommentModal from './comment.modal';
 
 // const UP_VOTE = 'upVote';
@@ -101,8 +100,7 @@ class Statusbar extends React.Component {
 
   render() {
     const { isPost, modalOpen } = this.state;
-    const { id, voteScore, comments, category } = this.props;
-
+    const { id, voteScore, comments, category, isDetail } = this.props;
     return (
       <div>
         <Flex p={1} align='center' justify='space-between'>
@@ -125,15 +123,15 @@ class Statusbar extends React.Component {
             {isPost && (
               <button onClick={this.openModal} className='icon-btn'>
                 <Bullhorn size={30} />
-                <h2>{comments} Bullhorns</h2>
+                <h2>{comments} Mocks</h2>
               </button>
             )}
           </Box>
           <Box px={2} w={2 / 8}>
-            {isPost && (
+            {isPost && !isDetail  && (
               <Link to={`/post/${category}/${id}`}>
                 <BlaBlaBlas size={30} />
-                <h2>BlaBlaBlas</h2>
+                <h2>BlahBlahBlahs</h2>
               </Link>
             )}
           </Box>

@@ -1,14 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { createComment, deleteCommentParent } from '../../redux/actions/comments.actions';
+import { deletePost, downVotePost, upVotePost } from '../../redux/actions/post.actions';
+import '../../styles/header.css';
+import '../../styles/home.css';
 import AddFAB from './add-fab';
 import PostComponent from './post.component';
 import PostsHeader from './posts-header';
-import '../../styles/header.css';
-import '../../styles/home.css';
-import { connect } from 'react-redux';
-import { deletePost, upVotePost, downVotePost } from '../../redux/actions/post.actions';
-import { deleteCommentParent, createComment } from '../../redux/actions/comments.actions';
-import { DEFAULT_CATEGORY } from './post-form.component';
-import PropTypes from 'prop-types';
+import { ALL_CATEGORIES } from '../../modules/home/home.page';
 
 class Posts extends React.Component {
 
@@ -37,9 +37,10 @@ class Posts extends React.Component {
   }
 
   handleFilter = filter => {
+
     // var posts = this.props && this.props.posts ? this.props.posts.map(post => post) : [];
     // posts.sort((a, b) => {return a === this.props.category});
-    alert(filter);
+
     // TODO; order here
     this.setState({ filter });
   }
@@ -52,8 +53,8 @@ class Posts extends React.Component {
         <PostsHeader title={category} onFilter={this.handleFilter}/>
         {posts && Object.keys(posts).map((key, index) => {
           const post = posts[key];
-          const commentsCount = Object.keys(comments)
-            .filter(commentId => comments[commentId].parentId === post.id);
+          const commentsCount = comments ? Object.keys(comments)
+            .filter(commentId => comments[commentId].parentId === post.id) : [];
           return post.deleted ? null
             : (
               <div key={`${post.id}${index}`} className="home-card">
@@ -68,6 +69,7 @@ class Posts extends React.Component {
                   comments={commentsCount.length}
                   createdAt={post.timestamp} 
                   deleted={post.deleted} 
+                  isDetail={false} 
                   onDeletePostClick={this.handleDeletePostClick}
                   onVotePostClick={this.handleVotePostClick}
                   onSubmitCommentClick={this.handleSubmitCommentClick} />
@@ -80,8 +82,17 @@ class Posts extends React.Component {
 
 }
 
+// TODO: FIX THIS CRAP
+// function mapStateToProps({ posts }, ownProps) {
+//   debugger
+//   const defaultCategory = !ownProps.category || ownProps.category === ALL_CATEGORIES;
+//   const filteredPosts = Object.keys(posts)
+//     .filter(postId => defaultCategory ? posts[postId].category === ownProps.category : true);
+//   return {posts: filteredPosts};
+// }
+
 function mapStateToProps({ posts, comments }, ownProps) {
-  if(!ownProps.category || ownProps.category == DEFAULT_CATEGORY) { 
+  if(!ownProps.category || ownProps.category == ALL_CATEGORIES) { 
     return { posts, comments }; 
   }
   const filteredPosts = Object.keys(posts).filter(postId => posts[postId].category === ownProps.category);

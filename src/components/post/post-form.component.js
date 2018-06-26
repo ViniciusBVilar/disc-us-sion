@@ -4,8 +4,8 @@ import Bomb from 'react-icons/lib/fa/bomb';
 import { connect } from 'react-redux';
 import { createPost, editPost } from '../../redux/actions/post.actions';
 import '../../styles/form.css';
+import { ALL_CATEGORIES } from '../../modules/home/home.page';
 
-export const DEFAULT_CATEGORY = 'All Categories';
 class PostFormComponent extends React.Component {
 
   validate = username => !username || username.trim() === '' ? 'Username is a required field' : null
@@ -18,7 +18,7 @@ class PostFormComponent extends React.Component {
     const data = {
       ...submittedValues,
       timestamp: new Date(),
-      category: this.props.category || DEFAULT_CATEGORY,
+      category: this.props.category || ALL_CATEGORIES,
     };
     this.props.createPostDispatch(data);
     // TODO: Verificar sucesso e go back

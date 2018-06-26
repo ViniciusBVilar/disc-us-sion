@@ -11,7 +11,7 @@ class PostsHeader extends React.Component {
       value: 'voteScore',
     },
     {
-      label: 'Data',
+      label: 'Date',
       value: 'timestamp',
     },
   ]

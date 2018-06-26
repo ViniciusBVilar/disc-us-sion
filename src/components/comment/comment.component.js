@@ -16,6 +16,7 @@ class CommentComponent extends React.Component {
   };
 
   static propTypes = {
+    key: PropTypes.string,
     id: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,
     deleted: PropTypes.string.isRequired,
@@ -35,6 +36,7 @@ class CommentComponent extends React.Component {
   
   render() {
     const {
+      key,
       id,
       parentId,
       deleted,
@@ -53,6 +55,7 @@ class CommentComponent extends React.Component {
       onSubmitCommentClick,
     } = this.props;
 
+    debugger
     return (
       <div>
         <Flex wrap p={1} align='center'>
@@ -75,7 +78,7 @@ class CommentComponent extends React.Component {
             </Box>
           </Flex>
           <Box px={2} w={1}>
-            <p>{`Autor: ${author}`}</p>
+            <p>{`Author: ${author}`}</p>
           </Box>
         </Flex>
         <div className='status-bar-comment'>
@@ -88,6 +91,7 @@ class CommentComponent extends React.Component {
             category={category}
             isPost={false}
             newComment={id != null}
+            isDetail={false}
           />
         </div>
         <CommentSeparator />

@@ -123,7 +123,7 @@ class Statusbar extends React.Component {
             {isPost && (
               <button onClick={this.openModal} className='icon-btn'>
                 <Bullhorn size={30} />
-                <h2>{comments} Mocks</h2>
+                <h2>{comments} Comments</h2>
               </button>
             )}
           </Box>

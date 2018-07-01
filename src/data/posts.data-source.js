@@ -45,7 +45,7 @@ export function fetchPostComments(id = '') {
 //    body - String
 //    author - String
 //    category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
-export function post(post) {
+export function createPost(post) {
   return fetch(`${BASE_URL}/posts`, {
     method: 'POST',
     headers: { Authorization: 'letitbe' },

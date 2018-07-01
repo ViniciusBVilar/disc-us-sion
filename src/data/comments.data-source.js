@@ -19,7 +19,7 @@ export function getCommentDetails(id = '') {
 //   body: String
 //   author: String
 //   parentId: Should match a post id in the database.
-export function comment(comment) {
+export function createComment(comment) {
   return fetch(`${BASE_URL}/comment`, {
     method: 'POST',
     headers: { Authorization: 'letitbe' },

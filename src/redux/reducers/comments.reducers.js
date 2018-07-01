@@ -5,7 +5,9 @@ import {
   DELETE_PARENT_COMMENT,
   UP_VOTE_COMMENT,
   DOWN_VOTE_COMMENT,
+  deleteCommentParent,
 } from '../actions/comments.actions';
+import { createComment, editComment, voteComment, deleteComment } from '../../data/comments.data-source';
 
 // const categories =  'react' | 'redux' | 'udacity';
 // id - UUID should be fine, but any unique id will work
@@ -51,7 +53,7 @@ const initialCommentsState = {
   }
 };
 
-export function comments(state = initialCommentsState, action) {
+export async function comments(state = initialCommentsState, action) {
   const { type, comment, commentId } = action;
   switch (type) {
   case CREATE_COMMENT:
@@ -61,50 +63,81 @@ export function comments(state = initialCommentsState, action) {
     newComment.voteScore = 0;
     newComment.deleted = false;
     newComment.parentDeleted = false;
-    return {
-      ...state,
-      [newCommentId]: newComment
-    };
+    try {
+      await createComment(newComment);
+      return {
+        ...state,
+        [newCommentId]: newComment
+      };
+    } catch(e) {
+      return state;
+    }
   case EDIT_COMMENT:
-    return {
-      ...state,
-      [commentId]: {
-        ...state[commentId],
-        ...comment
-      }
+    var editedComment = {
+      ...state[commentId],
+      ...comment
     };
+    try {
+      await editComment(commentId, editedComment);
+      return {
+        ...state,
+        [commentId]: editedComment
+      };
+    } catch(e) {
+      return state;
+    }
   case DELETE_COMMENT:
-    return {
-      ...state,
-      [commentId]: {
-        ...state[commentId],
-        'deleted': true
-      }
-    };
+    try {
+      await deleteComment(commentId);
+      return {
+        ...state,
+        [commentId]: {
+          ...state[commentId],
+          'deleted': true
+        }
+      };
+    } catch(e) {
+      return state;
+    }
   case DELETE_PARENT_COMMENT:
-    return {
-      ...state,
-      [commentId]: {
-        ...state[commentId],
-        'parentDeleted': true
-      }
-    };
+    try {
+      await deleteCommentParent(commentId);
+      return {
+        ...state,
+        [commentId]: {
+          ...state[commentId],
+          'parentDeleted': true
+        }
+      };
+    } catch(e) {
+      return state;
+    }
   case UP_VOTE_COMMENT:
-    return {
-      ...state,
-      [commentId]: {
-        ...state[commentId],
-        'voteScore': state[commentId]['voteScore'] + 1,
-      }
-    };
+    try {
+      await voteComment(commentId, 'upVote');
+      return {
+        ...state,
+        [commentId]: {
+          ...state[commentId],
+          'voteScore': state[commentId]['voteScore'] + 1,
+        }
+      };
+    } catch(e) {
+      return state;
+    }
   case DOWN_VOTE_COMMENT:
-    return {
-      ...state,
-      [commentId]: {
-        ...state[commentId],
-        'voteScore': state[commentId]['voteScore'] - 1,
-      }
-    };
+    try {
+      await voteComment(commentId, 'downVote');
+      return {
+        ...state,
+        [commentId]: {
+          ...state[commentId],
+          'voteScore': state[commentId]['voteScore'] - 1,
+        }
+      };
+    } catch(e) {
+      return state;
+    }
   default:
     return state;
   }

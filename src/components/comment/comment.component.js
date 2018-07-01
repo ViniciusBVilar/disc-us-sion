@@ -55,7 +55,6 @@ class CommentComponent extends React.Component {
       onSubmitCommentClick,
     } = this.props;
 
-    debugger
     return (
       <div>
         <Flex wrap p={1} align='center'>

@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createComment, deleteCommentParent } from '../../redux/actions/comments.actions';
 import { deletePost, downVotePost, upVotePost } from '../../redux/actions/post.actions';
+import { fetchAllPosts } from '../../data/posts.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 import AddFAB from './add-fab';
@@ -10,7 +11,7 @@ import PostComponent from './post.component';
 import PostsHeader from './posts-header';
 import { ALL_CATEGORIES } from '../../modules/home/home.page';
 
-class Posts extends React.Component {
+class PostList extends React.Component {
 
   static propTypes = {
     category: PropTypes.string.isRequired,
@@ -22,6 +23,23 @@ class Posts extends React.Component {
     downVoteDispatch : PropTypes.func.isRequired,
     createCommentDispatch : PropTypes.func.isRequired,
   };
+
+  state = {
+    filtet: null
+  };
+
+  componentDidMount() {
+    fetchAllPosts()
+      .then(posts => {
+        return this.setState(() => ({
+          posts,
+          loadingPosts: false
+        }));}
+      )
+      .catch(err => {
+        alert(err);
+      });
+  }
   
   handleDeletePostClick = id => {
     this.props.deletePostDispatch(id);
@@ -37,26 +55,23 @@ class Posts extends React.Component {
   }
 
   handleFilter = filter => {
-
-    // var posts = this.props && this.props.posts ? this.props.posts.map(post => post) : [];
-    // posts.sort((a, b) => {return a === this.props.category});
-
-    // TODO; order here
     this.setState({ filter });
   }
 
   render() {
-    const { category, posts, comments }= this.props;
-
+    const { category, comments }= this.props;
+    const posts = this.state.posts || this.props.posts;
+    const filter = this.state.filter;
     return (
       <div>
         <PostsHeader title={category} onFilter={this.handleFilter}/>
-        {posts && Object.keys(posts).map((key, index) => {
-          const post = posts[key];
-          const commentsCount = comments ? Object.keys(comments)
+        {posts && Object.keys(posts).sort((a,b) => posts[a][filter] - posts[b][filter]).map((key, index) => {
+          const post = posts[key].category === category || category === ALL_CATEGORIES ? posts[key] : null;
+
+          const commentsCount = comments && post ? Object.keys(comments)
             .filter(commentId => comments[commentId].parentId === post.id) : [];
-          return post.deleted ? null
-            : (
+          return post && !post.deleted ?
+            (
               <div key={`${post.id}${index}`} className="home-card">
                 <PostComponent
                   key={post.id}
@@ -73,7 +88,8 @@ class Posts extends React.Component {
                   onDeletePostClick={this.handleDeletePostClick}
                   onVotePostClick={this.handleVotePostClick}
                   onSubmitCommentClick={this.handleSubmitCommentClick} />
-              </div>);
+              </div>)
+            : null;
         })}
         <AddFAB category={category}/>
       </div>
@@ -82,21 +98,8 @@ class Posts extends React.Component {
 
 }
 
-// TODO: FIX THIS CRAP
-// function mapStateToProps({ posts }, ownProps) {
-//   debugger
-//   const defaultCategory = !ownProps.category || ownProps.category === ALL_CATEGORIES;
-//   const filteredPosts = Object.keys(posts)
-//     .filter(postId => defaultCategory ? posts[postId].category === ownProps.category : true);
-//   return {posts: filteredPosts};
-// }
-
-function mapStateToProps({ posts, comments }, ownProps) {
-  if(!ownProps.category || ownProps.category == ALL_CATEGORIES) { 
-    return { posts, comments }; 
-  }
-  const filteredPosts = Object.keys(posts).filter(postId => posts[postId].category === ownProps.category);
-  return {posts: filteredPosts};
+function mapStateToProps({ posts, comments }) {
+  return { posts, comments }; 
 }
 
 function mapDispatchToProps(dispatch) {
@@ -112,4 +115,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Posts);
+)(PostList);

@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  downVoteComment,
-  upVoteComment, 
-  editComment,
-  deleteComment} from '../../redux/actions/comments.actions';
+  downVoteCommentAPI,
+  upVoteCommentAPI, 
+  editCommentAPI,
+  deleteCommentAPI} from '../../redux/actions/comments.actions';
 import CommentComponent from './comment.component';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,10 +11,10 @@ import PropTypes from 'prop-types';
 class CommentList extends React.Component {
 
   static propTypes = {
-    editCommentDispatch: PropTypes.func.isRequired,
-    deleteCommentDispatch: PropTypes.func.isRequired,
-    upVoteCommentDispatch: PropTypes.func.isRequired,
-    downVoteCommentDispatch: PropTypes.func.isRequired,
+    editCommentAPIDispatch: PropTypes.func.isRequired,
+    deleteCommentAPIDispatch: PropTypes.func.isRequired,
+    upVoteCommentAPIDispatch: PropTypes.func.isRequired,
+    downVoteCommentAPIDispatch: PropTypes.func.isRequired,
     postComments: PropTypes.array.isRequired,
   };
 
@@ -23,15 +23,15 @@ class CommentList extends React.Component {
       ...comment,
       id,
     };
-    this.props.editCommentDispatch(data);
+    this.props.editCommentAPIDispatch(data);
   };
 
   handleDeleteCommentClick = id => {
-    this.props.deleteCommentDispatch(id);
+    this.props.deleteCommentAPIDispatch(id);
   };
 
   handleVoteCommentClick = (upVote, id) => {
-    upVote ? this.props.upVoteCommentDispatch(id) : this.props.downVoteCommentDispatch(id);
+    upVote ? this.props.upVoteCommentAPIDispatch(id) : this.props.downVoteCommentAPIDispatch(id);
   }
 
   render() {
@@ -39,7 +39,7 @@ class CommentList extends React.Component {
 
     return (
       <div>
-        {comments &&
+        {!comments.error && comments ?
           comments.map((comment, index) => (
             <CommentComponent
               key={index}
@@ -49,12 +49,12 @@ class CommentList extends React.Component {
               onVoteCommentClick={this.handleVoteCommentClick}
               onSubmitCommentClick={this.handleSubmitCommentClick} 
             />
-          ))}
+          ))
+          : <h2>Error: {comments.error.message}</h2>}
       </div>
     );
   }
 }
-
 
 function mapStateToProps({ comments }, ownProps) {
   const postComments = ownProps.commentsIds && ownProps.commentsIds.map(commentId => comments[commentId]);
@@ -63,10 +63,10 @@ function mapStateToProps({ comments }, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editCommentDispatch: comment => dispatch(editComment({ comment })),
-    deleteCommentDispatch: commentId => dispatch(deleteComment({ commentId })),
-    upVoteCommentDispatch: commentId => dispatch(upVoteComment({ commentId })),
-    downVoteCommentDispatch: commentId => dispatch(downVoteComment({ commentId })),
+    editCommentAPIDispatch: comment => dispatch(editCommentAPI({ comment })),
+    deleteCommentAPIDispatch: commentId => dispatch(deleteCommentAPI({ commentId })),
+    upVoteCommentAPIDispatch: commentId => dispatch(upVoteCommentAPI({ commentId })),
+    downVoteCommentAPIDispatch: commentId => dispatch(downVoteCommentAPI({ commentId })),
   };
 }
 

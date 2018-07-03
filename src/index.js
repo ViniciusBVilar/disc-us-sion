@@ -7,6 +7,7 @@ import App from './App';
 import './index.css';
 import reducer from './redux/reducers';
 import registerServiceWorker from './registerServiceWorker';
+import thunk from 'redux-thunk';
 
 const logger = store => next => action => {
   console.group(action.type);
@@ -19,7 +20,12 @@ const logger = store => next => action => {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(logger)));
+const middlewares = [
+  thunk,
+  logger
+];
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(...middlewares)));
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,11 +1,13 @@
 import {
+  ERROR_POST,
+  FETCH_POST,
   CREATE_POST,
   EDIT_POST,
   DELETE_POST,
   UP_VOTE_POST,
   DOWN_VOTE_POST,
 } from '../actions/post.actions';
-import { createPost, editPost, votePost, deletePost } from '../../data/posts.data-source';
+
 
 // const categories =  'react' | 'redux' | 'udacity';
 // id - UUID should be fine, but any unique id will work
@@ -48,9 +50,8 @@ const initialPostsState = {
   }
 };
 
-export async function posts(state = initialPostsState, action) {
-  const { type, post, postId } = action;
-  debugger
+export function posts(state = initialPostsState, action) {
+  const { type, post, postId, posts, error } = action;
   switch (type) {
   case CREATE_POST:
     var newPostId = `${Math.random()}|${new Date()}`;
@@ -58,73 +59,50 @@ export async function posts(state = initialPostsState, action) {
     newPost.id = newPostId;
     newPost.voteScore = 0;
     newPost.deleted = false;
-
-    try {
-      await createPost(newPost);
-      return {
-        ...state,
-        [newPostId]: newPost
-      };
-    } catch(e) {
-      return state;
-    }
+    return {
+      ...state,
+      [newPostId]: newPost
+    };
   case EDIT_POST:
     var editedPost = {
       ...state[postId],
       ...post
     };
-    try {
-      await editPost(postId, editedPost).then(() => {}).catch(() => {});
-      return {
-        ...state,
-        [postId]: editedPost
-      };
-    } catch(e) {
-      return state;
-    }
+    return {
+      ...state,
+      [postId]: editedPost
+    };
   case DELETE_POST:
-    try {
-      await deletePost(postId).then(() => {}).catch(() => {});
-      return {
-        ...state,
-        [postId]: {
-          ...state[postId],
-          'deleted': true
-        }
-      };
-    } catch(e) {
-      return state;
-    }
+    return {
+      ...state,
+      [postId]: {
+        ...state[postId],
+        'deleted': true
+      }
+    };
   case UP_VOTE_POST:
-    try {
-      debugger
-      await votePost(postId, {option: 'upVote'}).then(() => {}).catch(() => {});
-      debugger
-      return {
-        ...state,
-        [postId]: {
-          ...state[postId],
-          'voteScore': state[postId]['voteScore'] + 1,
-        }
-      };
-    } catch(e) {
-      debugger
-      return state;
-    }
+    return {
+      ...state,
+      [postId]: {
+        ...state[postId],
+        'voteScore': state[postId]['voteScore'] + 1,
+      }
+    };
   case DOWN_VOTE_POST:
-    try {
-      debugger
-      await votePost(postId, {option: 'downVote'}).then(() => {}).catch(() => {});
-      return {
-        ...state,
-        [postId]: {
-          ...state[postId],
-          'voteScore': state[postId]['voteScore'] - 1,
-        }
-      };
-    } catch(e) {
-      return state;
-    }
+    return {
+      ...state,
+      [postId]: {
+        ...state[postId],
+        'voteScore': state[postId]['voteScore'] - 1,
+      }
+    };
+  case ERROR_POST:
+    return {
+      ...state,
+      error
+    };
+  case FETCH_POST:
+    return {...posts};
   default:
     return state;
   }

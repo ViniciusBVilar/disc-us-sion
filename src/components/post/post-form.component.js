@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Text, TextArea } from 'react-form';
 import Bomb from 'react-icons/lib/fa/bomb';
 import { connect } from 'react-redux';
-import { createPost, editPost } from '../../redux/actions/post.actions';
+import { createPostAction, editPostAction, createPostAPI, editPostAPI } from '../../redux/actions/post.actions';
 import '../../styles/form.css';
 import { ALL_CATEGORIES } from '../../modules/home/home.page';
 
@@ -20,7 +20,7 @@ class PostFormComponent extends React.Component {
       timestamp: new Date(),
       category: this.props.category || ALL_CATEGORIES,
     };
-    this.props.createPostDispatch(data);
+    this.props.createPostAPIDispatch(data);
     // TODO: Verificar sucesso e go back
   }
 
@@ -29,7 +29,7 @@ class PostFormComponent extends React.Component {
       ...submittedValues,
       id: this.props.id,
     };
-    this.props.editPostDispatch(data);
+    this.props.editPostAPIDispatch(data);
     // TODO: Verificar sucesso e go back
   }
 
@@ -38,29 +38,34 @@ class PostFormComponent extends React.Component {
   }
 
   render() {
-    const { title, body, author, deleted } = this.state || this.props.post || {};
-    return deleted ? (
-      <div className='status-bar-post'>
-        <h1> Sir, the bomb has been defused.</h1>
-      </div>) 
-      : (<Form className="form" onSubmit={this.handleSubmit}>
-        {formApi => (
-          <form onSubmit={formApi.submitForm} id="form2">
-            <label htmlFor="title">Title</label>
-            <Text type="text" field="title" id="title" validate={this.validate} defaultValue={title}/>
-            <label htmlFor="body">Text</label>
-            <TextArea type="textArea" field="body" id="body" defaultValue={body}/>
-            <label htmlFor="author">Author</label>
-            <Text type="text" field="author" id="author" defaultValue={author}/>
-            <button
-              className='icon-btn btn btn-primary'
-              type="submit">
-              <Bomb size={30} />
-              <h3>Bomb</h3>
-            </button>
-          </form>
-        )}
-      </Form>);
+    const { title, body, author, deleted, error } = this.state || this.props.post || {};
+    return (
+      <div>
+        { error ? <h1>{error.message}</h1>
+          : deleted ? (
+            <div className='status-bar-post'>
+              <h1> 404 - Sir, the bomb has been defused.</h1>
+            </div>) 
+            : (<Form className="form" onSubmit={this.handleSubmit}>
+              {formApi => (
+                <form onSubmit={formApi.submitForm} id="form2">
+                  <label htmlFor="title">Title</label>
+                  <Text type="text" field="title" id="title" validate={this.validate} defaultValue={title}/>
+                  <label htmlFor="body">Text</label>
+                  <TextArea type="textArea" field="body" id="body" defaultValue={body}/>
+                  <label htmlFor="author">Author</label>
+                  <Text type="text" field="author" id="author" defaultValue={author}/>
+                  <button
+                    className='icon-btn btn btn-primary'
+                    type="submit">
+                    <Bomb size={30} />
+                    <h3>Bomb</h3>
+                  </button>
+                </form>
+              )}
+            </Form>)
+        }
+      </div>);
   }
 }
 
@@ -71,8 +76,8 @@ function mapStateToProps({ posts }, ownProps ) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createPostDispatch: post => dispatch(createPost({post})),
-    editPostDispatch: post => dispatch(editPost({post})),
+    createPostAPIDispatch: post => dispatch(createPostAPI({post})),
+    editPostAPIDispatch: post => dispatch(editPostAPI({post})),
   };
 }
 

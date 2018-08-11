@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/shared/header';
 import PostFormComponent from '../../components/post/post-form.component';
 import '../../styles/header.css';
-import { post, fetchPostDetails, editPost } from '../../data/posts.data-source';
+// import { post, fetchPostDetails, editPost } from '../../data/posts.data-source';
 
 class PostFormPage extends React.Component {
   // state = {

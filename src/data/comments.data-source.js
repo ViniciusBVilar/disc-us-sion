@@ -1,4 +1,4 @@
-import { configDELETE, configGET } from './http-methods';
+import { configDELETE, configGET, configPOST, configPUT } from './http-methods';
 
 // const BASE_URL = process.env.BASE_URL || 'http://localhost:3001';
 const BASE_URL = 'http://localhost:3001';
@@ -7,7 +7,9 @@ const BASE_URL = 'http://localhost:3001';
 // USAGE:
 //   Get the details for a single comment
 export function getCommentDetails(id = '') {
-  return fetch(`${BASE_URL}/comment/${id}`, configGET).then(res => res.json());
+  return fetch(`${BASE_URL}/comment/${id}`, configGET())
+    .then(res => res.json())
+    .catch(error => console.error(error));
 }
 
 // POST /comments
@@ -20,11 +22,9 @@ export function getCommentDetails(id = '') {
 //   author: String
 //   parentId: Should match a post id in the database.
 export function createComment(comment) {
-  return fetch(`${BASE_URL}/comment`, {
-    method: 'POST',
-    headers: { Authorization: 'letitbe' },
-    body: JSON.stringify({ comment })
-  }).then(res => res.json());
+  return fetch(`${BASE_URL}/comment`, configPOST(comment))
+    .then(res => res.json())
+    .catch(error => console.error(error));
 }
 
 // POST /comments/:id
@@ -33,11 +33,9 @@ export function createComment(comment) {
 // PARAMS:
 //   option - String: Either 'upVote' or 'downVote'
 export function voteComment(id, params) {
-  return fetch(`${BASE_URL}/comments/${id}`, {
-    method: 'POST',
-    headers: { Authorization: 'letitbe' },
-    body: JSON.stringify({ params })
-  }).then(res => res.json());
+  return fetch(`${BASE_URL}/comments/${id}`, configPOST(params))
+    .then(res => res.json())
+    .catch(error => console.error(error));
 }
 
 // PUT /comments/:id
@@ -47,18 +45,16 @@ export function voteComment(id, params) {
 //   timestamp: timestamp. Get this however you want.
 //   body: String
 export function editComment(id, params) {
-  return fetch(`${BASE_URL}/comments/${id}`, {
-    method: 'PUT',
-    headers: { Authorization: 'letitbe' },
-    body: JSON.stringify({ params })
-  }).then(res => res.json());
+  return fetch(`${BASE_URL}/comments/${id}`, configPUT(params))
+    .then(res => res.json())
+    .catch(error => console.error(error));
 }
 
 // DELETE /comments/:id
 // USAGE:
 //   Sets a comment's deleted flag to 'true'
 export function deleteComment(id) {
-  return fetch(`${BASE_URL}/comments/${id}`, configDELETE()).then(res =>
-    res.json()
-  );
+  return fetch(`${BASE_URL}/comments/${id}`, configDELETE())
+    .then(res => res.json())
+    .catch(error => console.error(error));
 }

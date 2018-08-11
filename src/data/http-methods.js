@@ -1,16 +1,18 @@
-export const headers = [{ Authorization: 'letitbe' }];
+const AUTHORIZARION_TOKEN = 'letitbe';
+
+export const headers = { Authorization: AUTHORIZARION_TOKEN };
 
 export const configGET = () => {
   return {
     method: 'GET',
-    headers: [...headers]
+    headers: headers
   };
 };
 
 export const configPOST = body => {
   return {
     method: 'POST',
-    headers: [...headers],
+    headers: headers,
     body: JSON.stringify({ body })
   };
 };
@@ -18,7 +20,7 @@ export const configPOST = body => {
 export const configPUT = body => {
   return {
     method: 'PUT',
-    headers: [...headers],
+    headers: headers,
     body: JSON.stringify({ body })
   };
 };
@@ -26,6 +28,6 @@ export const configPUT = body => {
 export const configDELETE = () => {
   return {
     method: 'DELETE',
-    headers: [...headers]
+    headers: headers
   };
 };

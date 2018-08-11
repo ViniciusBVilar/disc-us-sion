@@ -36,7 +36,6 @@ class CommentComponent extends React.Component {
   
   render() {
     const {
-      key,
       id,
       parentId,
       deleted,

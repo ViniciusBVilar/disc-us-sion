@@ -8,7 +8,8 @@ const BASE_URL = 'http://localhost:3001';
 //   Get all of the categories available for the app. List is found in categories.js.
 //   Feel free to extend this list as you desire.
 export function fetchCategories() {
-  return fetch(`${BASE_URL}/categories`, configGET)
+  return fetch(`${BASE_URL}/categories`, configGET())
     .then(res => res.json())
-    .then(data => data.categories);
+    .then(data => data.categories)
+    .catch(err => alert(`CATEGORIE ERROR: ${err}`));
 }

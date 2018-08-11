@@ -5,7 +5,8 @@ import {
   DELETE_PARENT_COMMENT,
   UP_VOTE_COMMENT,
   DOWN_VOTE_COMMENT,
-  deleteCommentParent,
+  ERROR_COMMENT,
+  FETCH_COMMENTS,
 } from '../actions/comments.actions';
 
 // const categories =  'react' | 'redux' | 'udacity';
@@ -53,7 +54,7 @@ const initialCommentsState = {
 };
 
 export function comments(state = initialCommentsState, action) {
-  const { type, comment, commentId } = action;
+  const { type, comment, commentId, error, comments } = action;
   switch (type) {
   case CREATE_COMMENT:
     var newCommentId = `${Math.random()}|${new Date()}`;
@@ -107,6 +108,13 @@ export function comments(state = initialCommentsState, action) {
         'voteScore': state[commentId]['voteScore'] - 1,
       }
     };
+  case ERROR_COMMENT:
+    return {
+      ...state,
+      error
+    };
+  case FETCH_COMMENTS:
+    return {...comments};
   default:
     return state;
   }

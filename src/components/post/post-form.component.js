@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createPostAction, editPostAction, createPostAPI, editPostAPI } from '../../redux/actions/post.actions';
 import '../../styles/form.css';
 import { ALL_CATEGORIES } from '../../modules/home/home.page';
+import { createPost, fetchAllPosts } from '../../data/posts.data-source';
 
 class PostFormComponent extends React.Component {
 
@@ -20,7 +21,26 @@ class PostFormComponent extends React.Component {
       timestamp: new Date(),
       category: this.props.category || ALL_CATEGORIES,
     };
-    this.props.createPostAPIDispatch(data);
+    // this.props.createPostAPIDispatch(data);
+
+    var newPostId = `${Math.random()}|${new Date()}`;
+    var newPost = { ...data };
+    newPost.id = newPostId;
+
+    createPost(newPost)
+      .then(post => {
+        return { ...newPost, ...post };
+      })
+      .then(post => alert(`POST: ${{...post}}`))
+      .catch(err => alert(`createPost ERR: ${err}`));
+      
+    fetchAllPosts()
+      .then(post => {
+        return { ...newPost, ...post };
+      })
+      .then(post => alert(`POST: ${{...post}}`))
+      .catch(err => alert(`fetchAllPosts ERR: ${err}`));
+
     // TODO: Verificar sucesso e go back
   }
 
@@ -38,13 +58,13 @@ class PostFormComponent extends React.Component {
   }
 
   render() {
-    const { title, body, author, deleted, error } = this.state || this.props.post || {};
+    const { title, body, author, deleted, error } = this.props.post || {};
     return (
       <div>
         { error ? <h1>{error.message}</h1>
           : deleted ? (
             <div className='status-bar-post'>
-              <h1> 404 - Sir, the bomb has been defused.</h1>
+              <h1> 404 Page no found</h1>
             </div>) 
             : (<Form className="form" onSubmit={this.handleSubmit}>
               {formApi => (

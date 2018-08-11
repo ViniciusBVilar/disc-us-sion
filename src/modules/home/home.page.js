@@ -7,7 +7,7 @@ import { fetchCategories } from '../../data/categories.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 
-export const APP_NAME = 'ikˈsplōZHən';
+export const APP_NAME = 'Discussion';
 export const ALL_CATEGORIES = 'All Categories';
 
 class HomePage extends React.Component {
@@ -26,11 +26,11 @@ class HomePage extends React.Component {
           loadingCategories: false
         }))
       )
-      .catch(err => alert(`Error: ${err}. - Make sure the server is on line!`));
+      .catch(err => alert(`FetchCategories Error: ${err}. - Make sure the server is on line!`));
   }
 
   render() {
-    const { categories, posts } = this.state;
+    const { categories } = this.state;
     return (
       <div>
         <Header title={APP_NAME} />

@@ -3,16 +3,19 @@ import { Form, Select } from 'react-form';
 import { Box, Flex } from 'reflexbox';
 import '../../styles/post-header.css';
 
+export const VOTE_SCORE = 'voteScore';
+export const TIME_STAMP = 'timestamp';
+
 class PostsHeader extends React.Component {
 
   statusOptions = [
     {
       label: 'Fires',
-      value: 'voteScore',
+      value: VOTE_SCORE,
     },
     {
       label: 'Date',
-      value: 'timestamp',
+      value: TIME_STAMP,
     },
   ]
 

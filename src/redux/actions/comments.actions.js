@@ -1,10 +1,12 @@
 import {
+  getCommentDetails,
   createComment,
   deleteComment,
   editComment,
   voteComment } from '../../data/comments.data-source';
 
 export const ERROR_COMMENT = 'ERROR_COMMENT';
+export const FETCH_COMMENTS = 'ERROR_COMMENT';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
@@ -19,6 +21,20 @@ export function errorComment(error) {
   };
 }
 
+export function fetchCommentDetails({ posts }) {
+  return {
+    type: FETCH_COMMENTS,
+    posts,
+  };
+}
+
+export const fetchCommentDetailsAPI = () => dispatch => (
+  getCommentDetails()
+    .then(posts => dispatch(fetchCommentDetails({ posts })))
+    .catch(error => dispatch(errorComment(error)))
+);
+
+
 export function createCommentAction({ comment }) {
   return {
     type: CREATE_COMMENT,
@@ -26,9 +42,9 @@ export function createCommentAction({ comment }) {
   };
 }
 
-export const createCommentAPI = () => dispatch => (
-  createComment()
-    .then(posts => dispatch(createCommentAction({ posts })))
+export const createCommentAPI = comment => dispatch => (
+  createComment(comment)
+    .then(() => dispatch(createCommentAction({ comment })))
     .catch(error => dispatch(errorComment(error)))
 );
 
@@ -41,9 +57,9 @@ export function editCommentAction({ comment }) {
   };
 }
 
-export const editCommentAPI = () => dispatch => (
-  editComment()
-    .then(posts => dispatch(editCommentAction({ posts })))
+export const editCommentAPI = comment => dispatch => (
+  editComment(comment)
+    .then(() => dispatch(editCommentAction({ comment })))
     .catch(error => dispatch(errorComment(error)))
 );
 
@@ -54,9 +70,9 @@ export function deleteCommentAction({ commentId }) {
   };
 }
 
-export const deleteCommentAPI = () => dispatch => (
-  deleteComment()
-    .then(posts => dispatch(deleteCommentAction({ posts })))
+export const deleteCommentAPI = commentId => dispatch => (
+  deleteComment(commentId)
+    .then(() => dispatch(deleteCommentAction({ commentId })))
     .catch(error => dispatch(errorComment(error)))
 );
 
@@ -74,9 +90,9 @@ export function upVoteCommentAction({ commentId }) {
   };
 }
 
-export const upVoteCommentAPI = () => dispatch => (
-  voteComment()
-    .then(posts => dispatch(upVoteCommentAction({ posts })))
+export const upVoteCommentAPI = commentId => dispatch => (
+  voteComment(commentId)
+    .then(() => dispatch(upVoteCommentAction({ commentId })))
     .catch(error => dispatch(errorComment(error)))
 );
 
@@ -87,8 +103,8 @@ export function downVoteCommentAction({ commentId }) {
   };
 }
 
-export const downVoteCommentAPI = () => dispatch => (
-  voteComment()
-    .then(posts => dispatch(downVoteCommentAction({ posts })))
+export const downVoteCommentAPI = commentId => dispatch => (
+  voteComment(commentId)
+    .then(() => dispatch(downVoteCommentAction({ commentId })))
     .catch(error => dispatch(errorComment(error)))
 );

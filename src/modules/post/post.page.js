@@ -67,7 +67,7 @@ class PostPage extends React.Component {
           : <div className='header-offset'>
             {deleted ? (
               <div className='status-bar-post'>
-                <h1> Bomb has been defused!</h1>
+                <h1>404 Page no found</h1>
               </div>) 
               : (<PostComponent
                 id={id}
@@ -92,15 +92,15 @@ class PostPage extends React.Component {
 }
 
 function mapStateToProps({ posts, comments }, ownProps ) {
-  const post = posts[ownProps.params.match.params.id];
-  const commentsIds = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] == [ownProps.params.match.params.id]);
+  const post = posts[ownProps.params.match.params.id] ? posts[ownProps.params.match.params.id] : {};
+  const commentsIds = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] === [ownProps.params.match.params.id]);
   return { post, commentsIds };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCommentDispatch: comment => dispatch(createCommentAPI({comment})),
-    deletePostAPIDispatch: postId => dispatch(deletePostAPI({postId})),
+    createCommentAPIDispatch: comment => dispatch(createCommentAPI({comment})),
+    deletePostAPIDispatch: postId => dispatch(deletePostAPI(postId)),
     upVoteAPIDispatch: postId => dispatch(upVotePostAPI({postId})),
     downVoteAPIDispatch: postId => dispatch(downVotePostAPI({postId})),
     // deletePostDispatch: postId => dispatch(deletePostAction({postId})),

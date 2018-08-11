@@ -1,12 +1,17 @@
-import { fetchAllPosts,
+import {
+  fetchAllPosts,
+  fetchCategoryPosts,
   fetchPostDetails,
   fetchPostComments,
   createPost,
   editPost,
   votePost,
-  deletePost } from '../../data/posts.data-source';
+  deletePost
+} from '../../data/posts.data-source';
+import { mapPosts } from './post-actions.mapper';
 
-export const ERROR_POST = 'ERROR_POST';
+export const POST_ERROR = 'ERROR_POST';
+export const POST_IS_LOADING = 'POST_IS_LOADING';
 export const FETCH_POST = 'FETCH_POST';
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
@@ -14,89 +19,139 @@ export const DELETE_POST = 'DELETE_POST';
 export const UP_VOTE_POST = 'UP_VOTE_POST';
 export const DOWN_VOTE_POST = 'DOWN_VOTE_POST';
 
-export function errorPost(error) {
+export function postError(error) {
   return {
-    type: ERROR_POST,
-    error,
+    type: POST_ERROR,
+    error
   };
 }
 
-export function receivePosts({ posts }) {
+export function postIsLoading(bool) {
+  return {
+    type: 'POST_IS_LOADING',
+    isLoading: bool
+  };
+}
+
+export function fetchPosts(posts) {
   return {
     type: FETCH_POST,
-    posts,
+    posts
   };
 }
 
-export const fetchPostsAPI = () => dispatch => (
+export const fetchPostsAPI = () => dispatch => {
+  // dispatch(postIsLoading(true));
   fetchAllPosts()
-    .then(posts => dispatch(receivePosts({ posts })))
-    .catch(error => dispatch(errorPost(error)))
-);
+    .then(posts => mapPosts(posts))
+    .then(posts => dispatch(fetchPosts(posts)))
+    .catch(error => dispatch(postError(error)));
+};
 
-export function createPostAction({ post }) {
+export function fetchPostsByCategory({ posts }) {
+  return {
+    type: FETCH_POST,
+    posts
+  };
+}
+
+export const fetchCategoryPostsAPI = category => dispatch =>
+  fetchCategoryPosts(category)
+    .then(posts => dispatch(fetchPostsByCategory({ posts })))
+    .catch(error => dispatch(postError(error)));
+
+export function fetchDetailsByPost(postId) {
+  return {
+    type: FETCH_POST,
+    postId
+  };
+}
+
+export const fetchPostDetailsAPI = postId => dispatch => {
+  fetchPostDetails(postId)
+    .then(() => dispatch(fetchPostDetails(postId)))
+    .catch(error => dispatch(postError(error)));
+};
+
+export function fetchCommentsByPost(postId) {
+  return {
+    type: FETCH_POST,
+    postId
+  };
+}
+
+export const fetchPostCommentsAPI = postId => dispatch =>
+  fetchPostComments(postId)
+    .then(() => dispatch(fetchPostComments(postId)))
+    .catch(error => dispatch(postError(error)));
+
+export function createPostAction(postId, post) {
   return {
     type: CREATE_POST,
-    post,
+    postId,
+    post
   };
 }
 
-export const createPostAPI = post => dispatch => (
-  createPost(post)
-    .then(() => {})
-    .catch(error => dispatch(errorPost(error)))
-);
+export const createPostAPI = post => dispatch => {
+  var newPostId = `${Math.random()}|${new Date()}`;
+  var newPost = { ...post.post };
+  newPost.id = newPostId;
+  createPost(newPost)
+    .then(post => {
+      return { ...newPost, ...post };
+    })
+    .then(post => dispatch(createPostAction(newPostId, post)))
+    .catch(error => dispatch(postError(error)));
+};
 
-export function editPostAction({ post }) {
+export function editPostAction(post) {
   const postId = post.id || '';
   return {
     type: EDIT_POST,
     post,
-    postId,
+    postId
   };
 }
 
-export const editPostAPI = post => dispatch => (
+export const editPostAPI = post => dispatch =>
   editPost(post.id, post)
-    .then(() => {})
-    .catch(error => dispatch(errorPost(error)))
-);
+    .then(() => dispatch(editPostAction(post)))
+    .catch(error => dispatch(postError(error)));
 
-export function deletePostAction({ postId }) {
+export function deletePostAction(postId) {
   return {
     type: DELETE_POST,
-    postId,
+    postId
   };
 }
 
-export const deletePostAPI = postId => dispatch => (
+export const deletePostAPI = postId => dispatch =>
+  // deletePost('8xf0y6ziyjabvozdd253nd')
   deletePost(postId)
-    .then(() => {})
-    .catch(error => dispatch(errorPost(error)))
-);
+    .then(() => dispatch(deletePostAction(postId)))
+    .catch(error => dispatch(postError(error)));
 
-export function upVotePost({ postId }) {
+export function upVotePost(postId) {
   return {
     type: UP_VOTE_POST,
-    postId,
+    postId
   };
 }
 
-export const upVotePostAPI = postId => dispatch => (
-  votePost(postId, {option: 'upVote'})
-    .then(() => {})
-    .catch(error => dispatch(errorPost(error)))
-);
+export const upVotePostAPI = postId => dispatch =>
+  votePost(postId, { option: 'upVote' })
+    .then(() => dispatch(upVotePost(postId)))
+    .catch(error => dispatch(postError(error)));
 
-export function downVotePost({ postId }) {
+export function downVotePost(postId) {
   return {
     type: DOWN_VOTE_POST,
-    postId,
+    postId
   };
 }
 
-export const downVotePostAPI = postId => dispatch => (
-  votePost(postId, {option: 'downVote'})
-    .then(() => {})
-    .catch(error => dispatch(errorPost(error)))
-);
+export const downVotePostAPI = postId => dispatch =>
+  votePost(postId, { option: 'downVote' })
+    .then(() => dispatch(downVotePost(postId)))
+    .catch(error => dispatch(postError(error)));

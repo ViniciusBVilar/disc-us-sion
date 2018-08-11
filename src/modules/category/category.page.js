@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box, Flex } from 'reflexbox';
+import Posts from '../../components/post/post-list';
 import Categories from '../../components/shared/categories';
 import Header from '../../components/shared/header';
-import Posts from '../../components/post/post-list';
 import { fetchCategories } from '../../data/categories.data-source';
+import { fetchCategoryPostsAPI } from '../../redux/actions/post.actions';
 import '../../styles/header.css';
 import '../../styles/home.css';
 import { APP_NAME } from '../home/home.page';
@@ -37,6 +39,7 @@ class CategoryPage extends React.Component {
       .catch(err => {
         alert(`Error: ${err}. - Make sure the server are on line!`);
       });
+    this.props.fetchPostsAPIDispatch();
   }
 
   // fetchPosts(category) {
@@ -78,4 +81,19 @@ class CategoryPage extends React.Component {
   }
 }
 
-export default CategoryPage;
+function mapStateToProps({ posts, comments }) {
+  return { posts, comments }; 
+}
+
+
+function mapDispatchToProps(dispatch, ownProps) {
+  const category = ownProps.category.match.params.category;
+  return {
+    fetchPostsAPIDispatch: () => dispatch(fetchCategoryPostsAPI({category})),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CategoryPage);

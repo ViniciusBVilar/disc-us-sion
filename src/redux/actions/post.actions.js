@@ -95,7 +95,7 @@ export function createPostAction(postId, post) {
 
 export const createPostAPI = post => dispatch => {
   var newPostId = `${Math.random()}|${new Date()}`;
-  var newPost = { ...post.post };
+  var newPost = { ...post };
   newPost.id = newPostId;
   createPost(newPost)
     .then(post => {
@@ -127,7 +127,6 @@ export function deletePostAction(postId) {
 }
 
 export const deletePostAPI = postId => dispatch =>
-  // deletePost('8xf0y6ziyjabvozdd253nd')
   deletePost(postId)
     .then(() => dispatch(deletePostAction(postId)))
     .catch(error => dispatch(postError(error)));

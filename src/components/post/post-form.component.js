@@ -2,13 +2,24 @@ import React from 'react';
 import { Form, Text, TextArea } from 'react-form';
 import Bomb from 'react-icons/lib/fa/bomb';
 import { connect } from 'react-redux';
-import { createPost, fetchAllPosts } from '../../data/posts.data-source';
 import { ALL_CATEGORIES } from '../../modules/home/home.page';
 import { createPostAPI, editPostAPI } from '../../redux/actions/post.actions';
 import '../../styles/form.css';
+import PropTypes from 'prop-types';
+
 
 class PostFormComponent extends React.Component {
+  
 
+  static propTypes = {
+    id: PropTypes.string,
+    category: PropTypes.string.isRequired,
+    post: PropTypes.object.isRequired,
+    createPostAPIDispatch: PropTypes.func.isRequired,
+    editPostAPIDispatch: PropTypes.func.isRequired,
+  };
+
+  
   validate = username => !username || username.trim() === '' ? 'Username is a required field' : null
 
   handleSubmit = submittedValues => {
@@ -21,25 +32,7 @@ class PostFormComponent extends React.Component {
       timestamp: new Date(),
       category: this.props.category || ALL_CATEGORIES,
     };
-    // this.props.createPostAPIDispatch(data);
-
-    var newPostId = `${Math.random()}|${new Date()}`;
-    var newPost = { ...data };
-    newPost.id = newPostId;
-
-    createPost(newPost)
-      .then(post => {
-        return { ...newPost, ...post };
-      })
-      .then(post => alert(`POST: ${{...post}}`))
-      .catch(err => alert(`createPost ERR: ${err}`));
-      
-    fetchAllPosts()
-      .then(post => {
-        return { ...newPost, ...post };
-      })
-      .then(post => alert(`POST: ${{...post}}`))
-      .catch(err => alert(`fetchAllPosts ERR: ${err}`));
+    this.props.createPostAPIDispatch(data);
 
     // TODO: Verificar sucesso e go back
   }

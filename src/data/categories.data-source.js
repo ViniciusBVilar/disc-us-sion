@@ -11,5 +11,5 @@ export function fetchCategories() {
   return fetch(`${BASE_URL}/categories`, configGET())
     .then(res => res.json())
     .then(data => data.categories)
-    .catch(err => alert(`CATEGORIE ERROR: ${err}`));
+    .catch(err => console.log(`CATEGORIE ERROR: ${err}`));
 }

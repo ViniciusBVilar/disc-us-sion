@@ -21,27 +21,6 @@ class PostPage extends React.Component {
     params: PropTypes.object.isRequired,
   };
 
-  // likes = 122;
-  // state = {
-  //   details: {},
-  //   comments: []
-  // };
-
-  // componentDidMount() {
-  //   const id = this.props.params.match.params.id;
-  //   fetchPostDetails(id)
-  //     .then(details => this.setState({ details }))
-  //     .catch(err => {
-  //       alert(err);
-  //     });
-
-  //   fetchPostComments(id)
-  //     .then(comments => this.setState({ comments }))
-  //     .catch(err => {
-  //       alert(err);
-  //     });
-  // }
-
   handleDeletePostClick = id => {
     this.props.deletePostAPIDispatch(id);
     this.props.deleteCommentParentAPIDispatch(id);

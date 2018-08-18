@@ -6,6 +6,7 @@ import Header from '../../components/shared/header';
 import { fetchCategories } from '../../data/categories.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
+import { defaultCategories } from '../category/category.page';
 
 export const APP_NAME = 'Readable';
 export const ALL_CATEGORIES = 'All Categories';
@@ -30,7 +31,7 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { categories } = this.state;
+    const categories = this.state.categories || defaultCategories;
     return (
       <div>
         <Header title={APP_NAME} />

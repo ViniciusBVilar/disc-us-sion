@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Box, Flex } from 'reflexbox';
@@ -10,21 +11,34 @@ import '../../styles/header.css';
 import '../../styles/home.css';
 import { APP_NAME } from '../home/home.page';
 
+export const defaultCategories = [
+  {
+    name: 'react',
+    path: 'react'
+  },
+  {
+    name: 'redux',
+    path: 'redux'
+  },
+  {
+    name: 'udacity',
+    path: 'udacity'
+  }
+];
+
 class CategoryPage extends React.Component {
+
+
+  static propTypes = {
+    category: PropTypes.string.isRequired,
+    fetchPostsAPIDispatch: PropTypes.func.isRequired,
+  };
+
   state = {
     category: null,
     categories: null,
     loadingCategories: false,
-    // posts: null,
-    // loadingPosts: false
   };
-
-  // // TODO: replace with getDerivedStateFromProps()
-  // UNSAFE_componentWillReceiveProps() {
-  //   const category = this.props.category.match.params.category;
-  //   this.setState({ category });
-  //   this.fetchPosts(category);
-  // }
 
   componentDidMount() {
     const category = this.props.category.match.params.category;
@@ -42,25 +56,8 @@ class CategoryPage extends React.Component {
     this.props.fetchPostsAPIDispatch();
   }
 
-  // fetchPosts(category) {
-  //   fetchCategoryPosts(category)
-  //     .then(posts =>
-  //       this.setState(() => ({
-  //         posts,
-  //         loadingPosts: false
-  //       }))
-  //     )
-  //     .catch(err => {
-  //       alert(err);
-  //     });
-  // }
-
-  // componentWillUnmount() {
-  //   this.setState(() => ({}));
-  // }
-
   render() {
-    const { categories } = this.state;
+    const categories = defaultCategories;
     const category = this.props.category.match.params.category;
 
     return (

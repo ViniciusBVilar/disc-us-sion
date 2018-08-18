@@ -99,12 +99,12 @@ function mapStateToProps({ posts, comments }, ownProps ) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCommentAPIDispatch: comment => dispatch(createCommentAPI({comment})),
+    createCommentAPIDispatch: comment => dispatch(createCommentAPI(comment)),
     deletePostAPIDispatch: postId => dispatch(deletePostAPI(postId)),
-    upVoteAPIDispatch: postId => dispatch(upVotePostAPI({postId})),
-    downVoteAPIDispatch: postId => dispatch(downVotePostAPI({postId})),
-    // deletePostDispatch: postId => dispatch(deletePostAction({postId})),
-    deleteCommentParentDispatch: postId => dispatch(deleteCommentParent({postId})),
+    upVoteAPIDispatch: postId => dispatch(upVotePostAPI(postId)),
+    downVoteAPIDispatch: postId => dispatch(downVotePostAPI(postId)),
+    // deletePostDispatch: postId => dispatch(deletePostAction(postId)),
+    deleteCommentParentDispatch: postId => dispatch(deleteCommentParent(postId)),
     // upVoteDispatch: postId => dispatch(upVotePost({postId})),
     // downVoteDispatch: postId => dispatch(downVotePost({postId})),
   };

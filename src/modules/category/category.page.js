@@ -89,7 +89,7 @@ function mapStateToProps({ posts, comments }) {
 function mapDispatchToProps(dispatch, ownProps) {
   const category = ownProps.category.match.params.category;
   return {
-    fetchPostsAPIDispatch: () => dispatch(fetchCategoryPostsAPI({category})),
+    fetchPostsAPIDispatch: () => dispatch(fetchCategoryPostsAPI(category)),
   };
 }
 

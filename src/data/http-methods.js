@@ -1,4 +1,4 @@
-const AUTHORIZARION_TOKEN = 'letitbe';
+const AUTHORIZARION_TOKEN = 'atuhtoken';
 
 export const headers = { Authorization: AUTHORIZARION_TOKEN };
 
@@ -13,7 +13,7 @@ export const configPOST = body => {
   return {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ body })
+    body: JSON.stringify(body)
   };
 };
 
@@ -21,7 +21,7 @@ export const configPUT = body => {
   return {
     method: 'PUT',
     headers: headers,
-    body: JSON.stringify({ body })
+    body: JSON.stringify(body)
   };
 };
 

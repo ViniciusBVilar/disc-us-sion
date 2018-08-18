@@ -2,10 +2,10 @@ import React from 'react';
 import { Form, Text, TextArea } from 'react-form';
 import Bomb from 'react-icons/lib/fa/bomb';
 import { connect } from 'react-redux';
-import { createPostAction, editPostAction, createPostAPI, editPostAPI } from '../../redux/actions/post.actions';
-import '../../styles/form.css';
-import { ALL_CATEGORIES } from '../../modules/home/home.page';
 import { createPost, fetchAllPosts } from '../../data/posts.data-source';
+import { ALL_CATEGORIES } from '../../modules/home/home.page';
+import { createPostAPI, editPostAPI } from '../../redux/actions/post.actions';
+import '../../styles/form.css';
 
 class PostFormComponent extends React.Component {
 
@@ -96,8 +96,8 @@ function mapStateToProps({ posts }, ownProps ) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createPostAPIDispatch: post => dispatch(createPostAPI({post})),
-    editPostAPIDispatch: post => dispatch(editPostAPI({post})),
+    createPostAPIDispatch: post => dispatch(createPostAPI(post)),
+    editPostAPIDispatch: post => dispatch(editPostAPI(post)),
   };
 }
 

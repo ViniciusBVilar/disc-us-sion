@@ -121,15 +121,15 @@ function mapStateToProps({ posts, comments }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchPostsAPIDispatch: postId => dispatch(fetchPostsAPI({ postId })),
+    fetchPostsAPIDispatch: postId => dispatch(fetchPostsAPI(postId)),
     deletePostAPIDispatch: postId => dispatch(deletePostAPI(postId)),
     deleteCommentParentDispatch: postId => dispatch(deleteCommentParent(postId)),
     upVoteAPIDispatch: postId => dispatch(upVotePostAPI(postId)),
     downVoteAPIDispatch: postId => dispatch(downVotePostAPI(postId)),
-    createCommentAPIDispatch: comment => dispatch(createCommentAPI({ comment }))
-    // deletePostDispatch: postId => dispatch(deletePostAction({postId})),
-    // upVoteDispatch: postId => dispatch(upVotePost({postId})),
-    // downVoteDispatch: postId => dispatch(downVotePost({postId})),
+    createCommentAPIDispatch: comment => dispatch(createCommentAPI(comment))
+    // deletePostDispatch: postId => dispatch(deletePostAction(postId)),
+    // upVoteDispatch: postId => dispatch(upVotePost(postId)),
+    // downVoteDispatch: postId => dispatch(downVotePost(postId)),
   };
 }
 

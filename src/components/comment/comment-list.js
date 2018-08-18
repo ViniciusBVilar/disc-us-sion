@@ -63,10 +63,10 @@ function mapStateToProps({ comments }, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editCommentAPIDispatch: comment => dispatch(editCommentAPI({ comment })),
-    deleteCommentAPIDispatch: commentId => dispatch(deleteCommentAPI({ commentId })),
-    upVoteCommentAPIDispatch: commentId => dispatch(upVoteCommentAPI({ commentId })),
-    downVoteCommentAPIDispatch: commentId => dispatch(downVoteCommentAPI({ commentId })),
+    editCommentAPIDispatch: comment => dispatch(editCommentAPI(comment)),
+    deleteCommentAPIDispatch: commentId => dispatch(deleteCommentAPI(commentId)),
+    upVoteCommentAPIDispatch: commentId => dispatch(upVoteCommentAPI(commentId)),
+    downVoteCommentAPIDispatch: commentId => dispatch(downVoteCommentAPI(commentId)),
   };
 }
 

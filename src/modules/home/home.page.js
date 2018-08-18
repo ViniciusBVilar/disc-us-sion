@@ -7,7 +7,7 @@ import { fetchCategories } from '../../data/categories.data-source';
 import '../../styles/header.css';
 import '../../styles/home.css';
 
-export const APP_NAME = 'Discussion';
+export const APP_NAME = 'Readable';
 export const ALL_CATEGORIES = 'All Categories';
 
 class HomePage extends React.Component {

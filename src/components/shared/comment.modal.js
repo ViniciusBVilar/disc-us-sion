@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Text, TextArea } from 'react-form';
 import Bullhorn from 'react-icons/lib/fa/bullhorn';
@@ -6,6 +7,15 @@ import '../../styles/modal.css';
 
 class CommentModal extends React.Component {
 
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    modalOpen: PropTypes.bool.isRequired,
+    onCloseModal: PropTypes.func.isRequired,
+    onPostComment: PropTypes.func.isRequired,
+  };
+  
   render() {
     const { id, body, author, modalOpen, onCloseModal, onPostComment } = this.props;
 

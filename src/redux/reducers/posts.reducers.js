@@ -38,8 +38,7 @@ export function posts(state = {}, action) {
       ...state,
       [postId]: {
         ...state[postId],
-        'voteScore': state[Object.keys(state).filter(key => state[key].id === postId)[0]].voteScore + 1 || 0,
-        // 'voteScore': state[postId]['voteScore'] + 1,
+        'voteScore': state[Object.keys(state).filter(key => state[key].id === postId)[0]].voteScore + 1 || 1,
       }
     };
   case DOWN_VOTE_POST:
@@ -47,7 +46,7 @@ export function posts(state = {}, action) {
       ...state,
       [postId]: {
         ...state[postId],
-        'voteScore': state[Object.keys(state).filter(key => state[key].id === postId)[0]].voteScore - 1,
+        'voteScore': state[Object.keys(state).filter(key => state[key].id === postId)[0]].voteScore - 1 || -1,
       }
     };
   case POST_ERROR:

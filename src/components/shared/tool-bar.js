@@ -1,9 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Flex } from 'reflexbox';
 import CommentModal from './comment.modal';
 
 class Toolbar extends React.Component {
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    isPost: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onEditComment: PropTypes.func.isRequired,
+  };
+
 
   state = {
     closeModal: false,
@@ -26,7 +39,7 @@ class Toolbar extends React.Component {
       modalOpen: false
     }));
 
-    this.props.onEditComment(submittedValues, id)
+    this.props.onEditComment(submittedValues, id);
   };
 
   render() {

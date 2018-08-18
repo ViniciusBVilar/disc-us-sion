@@ -12,7 +12,7 @@ class PostPage extends React.Component {
 
   static propTypes = {
     deletePostAPIDispatch: PropTypes.func.isRequired,
-    deleteCommentParentAPIDispatch: PropTypes.func.isRequired,
+    deleteCommentParentDispatch: PropTypes.func.isRequired,
     upVoteAPIDispatch: PropTypes.func.isRequired,
     downVoteAPIDispatch: PropTypes.func.isRequired,
     createCommentAPIDispatch: PropTypes.func.isRequired,
@@ -23,7 +23,7 @@ class PostPage extends React.Component {
 
   handleDeletePostClick = id => {
     this.props.deletePostAPIDispatch(id);
-    this.props.deleteCommentParentAPIDispatch(id);
+    this.props.deleteCommentParentDispatch(id);
   };
 
   handleVotePostClick = (upVote, id) => {
@@ -72,7 +72,7 @@ class PostPage extends React.Component {
 
 function mapStateToProps({ posts, comments }, ownProps ) {
   const post = posts[ownProps.params.match.params.id] ? posts[ownProps.params.match.params.id] : {};
-  const commentsIds = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] === [ownProps.params.match.params.id]);
+  let commentsIds = Object.keys(comments).filter(commentId => comments[commentId]['parentId'] === ownProps.params.match.params.id);
   return { post, commentsIds };
 }
 
@@ -82,10 +82,7 @@ function mapDispatchToProps(dispatch) {
     deletePostAPIDispatch: postId => dispatch(deletePostAPI(postId)),
     upVoteAPIDispatch: postId => dispatch(upVotePostAPI(postId)),
     downVoteAPIDispatch: postId => dispatch(downVotePostAPI(postId)),
-    // deletePostDispatch: postId => dispatch(deletePostAction(postId)),
     deleteCommentParentDispatch: postId => dispatch(deleteCommentParent(postId)),
-    // upVoteDispatch: postId => dispatch(upVotePost({postId})),
-    // downVoteDispatch: postId => dispatch(downVotePost({postId})),
   };
 }
 

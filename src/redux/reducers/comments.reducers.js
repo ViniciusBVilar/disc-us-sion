@@ -17,55 +17,49 @@ import {
 // author - String
 // category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 
-const initialCommentsState = {
-  'aaa': {
-    id: 'aaa',
-    parentId: '123',
-    timestamp: new Date(),
-    title: 'aaa_aaa_aaaa',
-    body: 'baaa-aaa-vv-',
-    author: 'caaa-aaavv',
-    voteScore: 21,
-    deleted: false,
-    parentDeleted: false,
-  },
-  '213': {
-    id: '213',
-    parentId: '123',
-    timestamp: new Date(),
-    title: 'aaa_aaa_aaaa',
-    body: 'baaa-aaa-vv-',
-    author: 'caaa-aaavv',
-    voteScore: 21,
-    deleted: false,
-    parentDeleted: false,
-  },
-  '214': {
-    id: '214',
-    parentId: '124',
-    timestamp: new Date(),
-    title: 'aaa_aaa_aaaa',
-    body: 'baaa-aaa-vv-',
-    author: 'caaa-aaavv',
-    voteScore: 21,
-    deleted: false,
-    parentDeleted: false,
-  }
-};
+// const initialCommentsState = {
+//   'aaa': {
+//     id: 'aaa',
+//     parentId: '123',
+//     timestamp: new Date(),
+//     title: 'aaa_aaa_aaaa',
+//     body: 'baaa-aaa-vv-',
+//     author: 'caaa-aaavv',
+//     voteScore: 21,
+//     deleted: false,
+//     parentDeleted: false,
+//   },
+//   '213': {
+//     id: '213',
+//     parentId: '123',
+//     timestamp: new Date(),
+//     title: 'aaa_aaa_aaaa',
+//     body: 'baaa-aaa-vv-',
+//     author: 'caaa-aaavv',
+//     voteScore: 21,
+//     deleted: false,
+//     parentDeleted: false,
+//   },
+//   '214': {
+//     id: '214',
+//     parentId: '124',
+//     timestamp: new Date(),
+//     title: 'aaa_aaa_aaaa',
+//     body: 'baaa-aaa-vv-',
+//     author: 'caaa-aaavv',
+//     voteScore: 21,
+//     deleted: false,
+//     parentDeleted: false,
+//   }
+// };
 
-export function comments(state = initialCommentsState, action) {
+export function comments(state = {}, action) {
   const { type, comment, commentId, error, comments } = action;
   switch (type) {
   case CREATE_COMMENT:
-    var newCommentId = `${Math.random()}|${new Date()}`;
-    var newComment = comment;
-    newComment.id = newCommentId;
-    newComment.voteScore = 0;
-    newComment.deleted = false;
-    newComment.parentDeleted = false;
     return {
       ...state,
-      [newCommentId]: newComment
+      [commentId]: comment
     };
   case EDIT_COMMENT:
     var editedComment = {
@@ -97,7 +91,7 @@ export function comments(state = initialCommentsState, action) {
       ...state,
       [commentId]: {
         ...state[commentId],
-        'voteScore': state[commentId]['voteScore'] + 1,
+        'voteScore': state[Object.keys(state).filter(key => state[key].id === commentId)[0]].voteScore + 1 || 1,
       }
     };
   case DOWN_VOTE_COMMENT:
@@ -105,7 +99,7 @@ export function comments(state = initialCommentsState, action) {
       ...state,
       [commentId]: {
         ...state[commentId],
-        'voteScore': state[commentId]['voteScore'] - 1,
+        'voteScore': state[Object.keys(state).filter(key => state[key].id === commentId)[0]].voteScore - 1 || -1,
       }
     };
   case ERROR_COMMENT:

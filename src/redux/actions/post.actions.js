@@ -48,7 +48,7 @@ export const fetchPostsAPI = () => dispatch => {
     .catch(error => dispatch(postError(error)));
 };
 
-export function fetchPostsByCategory({ posts }) {
+export function fetchPostsByCategory(posts) {
   return {
     type: FETCH_POST,
     posts
@@ -57,7 +57,7 @@ export function fetchPostsByCategory({ posts }) {
 
 export const fetchCategoryPostsAPI = category => dispatch =>
   fetchCategoryPosts(category)
-    .then(posts => dispatch(fetchPostsByCategory({ posts })))
+    .then(posts => dispatch(fetchPostsByCategory(posts)))
     .catch(error => dispatch(postError(error)));
 
 export function fetchDetailsByPost(postId) {

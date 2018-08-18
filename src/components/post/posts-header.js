@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Select } from 'react-form';
 import { Box, Flex } from 'reflexbox';
@@ -7,6 +8,11 @@ export const VOTE_SCORE = 'voteScore';
 export const TIME_STAMP = 'timestamp';
 
 class PostsHeader extends React.Component {
+
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    onFilter: PropTypes.func.isRequired,
+  };
 
   statusOptions = [
     {

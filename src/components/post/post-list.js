@@ -57,7 +57,7 @@ class PostList extends React.Component {
 
   filter = (posts, a, b, filter) => {
     return filter === VOTE_SCORE
-      ? posts[a][filter] > posts[b][filter]
+      ? posts[a][filter] < posts[b][filter]
       : posts[a][filter] > posts[b][filter];
   };
 
@@ -127,9 +127,6 @@ function mapDispatchToProps(dispatch) {
     upVoteAPIDispatch: postId => dispatch(upVotePostAPI(postId)),
     downVoteAPIDispatch: postId => dispatch(downVotePostAPI(postId)),
     createCommentAPIDispatch: comment => dispatch(createCommentAPI(comment))
-    // deletePostDispatch: postId => dispatch(deletePostAction(postId)),
-    // upVoteDispatch: postId => dispatch(upVotePost(postId)),
-    // downVoteDispatch: postId => dispatch(downVotePost(postId)),
   };
 }
 

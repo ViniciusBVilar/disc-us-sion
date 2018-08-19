@@ -91,7 +91,7 @@ export function comments(state = {}, action) {
       ...state,
       [commentId]: {
         ...state[commentId],
-        'voteScore': state[Object.keys(state).filter(key => state[key].id === commentId)[0]].voteScore + 1 || 1,
+        'voteScore': state[commentId].voteScore + 1 || 1,
       }
     };
   case DOWN_VOTE_COMMENT:
@@ -99,7 +99,7 @@ export function comments(state = {}, action) {
       ...state,
       [commentId]: {
         ...state[commentId],
-        'voteScore': state[Object.keys(state).filter(key => state[key].id === commentId)[0]].voteScore - 1 || -1,
+        'voteScore': state[commentId].voteScore - 1 || -1,
       }
     };
   case ERROR_COMMENT:

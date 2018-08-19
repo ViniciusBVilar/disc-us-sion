@@ -27,17 +27,15 @@ export const defaultCategories = [
 ];
 
 class CategoryPage extends React.Component {
-
-
   static propTypes = {
     category: PropTypes.string.isRequired,
-    fetchPostsAPIDispatch: PropTypes.func.isRequired,
+    fetchPostsAPIDispatch: PropTypes.func.isRequired
   };
 
   state = {
     category: null,
     categories: null,
-    loadingCategories: false,
+    loadingCategories: false
   };
 
   componentDidMount() {
@@ -63,12 +61,12 @@ class CategoryPage extends React.Component {
     return (
       <div>
         <Header title={APP_NAME} />
-        <div className='header-offset'>
-          <Flex p={1} align='center'>
-            <Box className='categories' px={2} w={1 / 6}>
+        <div className="header-offset">
+          <Flex p={1} align="center">
+            <Box className="categories" px={2} w={1 / 6}>
               <Categories categories={categories} />
             </Box>
-            <Box px={2} ml='25%' w={5 / 6}>
+            <Box px={2} ml="25%" w={5 / 6}>
               <Posts category={category} />
             </Box>
           </Flex>
@@ -79,14 +77,13 @@ class CategoryPage extends React.Component {
 }
 
 function mapStateToProps({ posts, comments }) {
-  return { posts, comments }; 
+  return { posts, comments };
 }
-
 
 function mapDispatchToProps(dispatch, ownProps) {
   const category = ownProps.category.match.params.category;
   return {
-    fetchPostsAPIDispatch: () => dispatch(fetchCategoryPostsAPI(category)),
+    fetchPostsAPIDispatch: () => dispatch(fetchCategoryPostsAPI(category))
   };
 }
 

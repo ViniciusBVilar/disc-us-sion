@@ -12,10 +12,10 @@ export const APP_NAME = 'Readable';
 export const ALL_CATEGORIES = 'All Categories';
 
 class HomePage extends React.Component {
+  // TODO: Add loading in all pages
   state = {
     categories: null,
-    loadingCategories: false,
-    // posts: null,
+    loadingCategories: false
     // loadingPosts: false
   };
 
@@ -27,7 +27,11 @@ class HomePage extends React.Component {
           loadingCategories: false
         }))
       )
-      .catch(err => alert(`FetchCategories Error: ${err}. - Make sure the server is on line!`));
+      .catch(err =>
+        alert(
+          `FetchCategories Error: ${err}. - Make sure the server is on line!`
+        )
+      );
   }
 
   render() {
@@ -35,13 +39,13 @@ class HomePage extends React.Component {
     return (
       <div>
         <Header title={APP_NAME} />
-        <div className='header-offset'>
-          <Flex p={1} align='center'>
-            <Box className='categories' px={2} w={1 / 6}>
-              <Categories categories={categories}/>
+        <div className="header-offset">
+          <Flex p={1} align="center">
+            <Box className="categories" px={2} w={1 / 6}>
+              <Categories categories={categories} />
             </Box>
-            <Box px={2} ml='25%' w={5 / 6}>
-              <PostList category={ALL_CATEGORIES}/>
+            <Box px={2} ml="25%" w={5 / 6}>
+              <PostList category={ALL_CATEGORIES} />
             </Box>
           </Flex>
         </div>

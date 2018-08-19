@@ -1,8 +1,8 @@
 import {
-  getCommentDetails,
   createComment,
   deleteComment,
   editComment,
+  getCommentDetails,
   voteComment
 } from '../../data/comments.data-source';
 

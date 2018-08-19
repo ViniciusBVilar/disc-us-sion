@@ -6,7 +6,7 @@ import '../../styles/header.css';
 
 class PostFormPage extends React.Component {
   static propTypes = {
-    params: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired
   };
 
   render() {
@@ -15,8 +15,8 @@ class PostFormPage extends React.Component {
     return (
       <div>
         <Header title={'Plant the Bomb'} />
-        <div className='header-offset'>
-          <PostFormComponent category={category} id={id}/>
+        <div className="header-offset">
+          <PostFormComponent category={category} id={id} />
         </div>
       </div>
     );

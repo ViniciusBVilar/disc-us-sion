@@ -5,7 +5,6 @@ import { Box, Flex } from 'reflexbox';
 import CommentModal from './comment.modal';
 
 class Toolbar extends React.Component {
-
   static propTypes = {
     id: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
@@ -14,13 +13,12 @@ class Toolbar extends React.Component {
     createdAt: PropTypes.string.isRequired,
     isPost: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    onEditComment: PropTypes.func.isRequired,
+    onEditComment: PropTypes.func.isRequired
   };
 
-
   state = {
-    closeModal: false,
-  }
+    closeModal: false
+  };
 
   openModal = () => {
     this.setState(() => ({
@@ -43,20 +41,31 @@ class Toolbar extends React.Component {
   };
 
   render() {
-    const { id, body, author, category, createdAt, isPost, onClick } = this.props;
+    const {
+      id,
+      body,
+      author,
+      category,
+      createdAt,
+      isPost,
+      onClick
+    } = this.props;
 
     return (
-      <Flex p={2} align='center'>
+      <Flex p={2} align="center">
         <Box px={2} w={3 / 5}>
           {new Date(createdAt).toString()}
         </Box>
         <Box px={2} w={1 / 5}>
-          {isPost ? <Link to={`/editForm/${category}${id ? `/${id}` : ''}`}>
-            <p>Editar</p>
-          </Link>
-            : <button onClick={this.openModal}>
+          {isPost ? (
+            <Link to={`/editForm/${category}${id ? `/${id}` : ''}`}>
+              <p>Editar</p>
+            </Link>
+          ) : (
+            <button onClick={this.openModal}>
               <h2>Editar</h2>
-            </button>}
+            </button>
+          )}
         </Box>
         <Box px={2} w={1 / 5}>
           <button onClick={() => onClick(id)}>
@@ -70,7 +79,8 @@ class Toolbar extends React.Component {
           author={author}
           modalOpen={this.state.modalOpen}
           onCloseModal={this.handleCloseModal}
-          onPostComment={this.handlePostComment}/>
+          onPostComment={this.handlePostComment}
+        />
       </Flex>
     );
   }

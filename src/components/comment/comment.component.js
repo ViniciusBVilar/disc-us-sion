@@ -56,43 +56,46 @@ class CommentComponent extends React.Component {
 
     return (
       <div>
-        <Flex wrap p={1} align='center'>
-          <Flex p={1} align='center'>
-            <Box px={2} w={3 / 4}>
-              {parentDeleted && <h4>{`PARENT_DELETED - parentId: ${parentId}`}</h4>}
-              {deleted ? <h4>{`DELETED - ${body}`}</h4> : <h4>{body}</h4>}
-            </Box>
-            <Box px={2} w={1 / 4}>
-              <Toolbar
-                id={id}
-                body={body}
-                author={author}
-                category={category}
-                createdAt={timestamp}
-                isPost={false}
-                onClick={onDeleteCommentClick}
-                onEditComment={onEditCommentClick}
-              />
+        {!deleted && 
+        <div>
+          <Flex wrap p={1} align='center'>
+            <Flex p={1} align='center'>
+              <Box px={2} w={3 / 4}>
+                {parentDeleted && <h4>{`PARENT_DELETED - parentId: ${parentId}`}</h4>}
+                {deleted ? <h4>{`DELETED - ${body}`}</h4> : <h4>{body}</h4>}
+              </Box>
+              <Box px={2} w={1 / 4}>
+                <Toolbar
+                  id={id}
+                  body={body}
+                  author={author}
+                  category={category}
+                  createdAt={timestamp}
+                  isPost={false}
+                  onClick={onDeleteCommentClick}
+                  onEditComment={onEditCommentClick}
+                />
+              </Box>
+            </Flex>
+            <Box px={2} w={1}>
+              <p>{`Author: ${author}`}</p>
             </Box>
           </Flex>
-          <Box px={2} w={1}>
-            <p>{`Author: ${author}`}</p>
-          </Box>
-        </Flex>
-        <div className='status-bar-comment'>
-          <Statusbar
-            voteScore={voteScore}
-            onVoteClick={onVoteCommentClick}
-            comments={comments}
-            onSubmitCommentClick={onSubmitCommentClick}
-            id={id}
-            category={category}
-            isPost={false}
-            newComment={id != null}
-            isDetail={false}
-          />
-        </div>
-        <CommentSeparator />
+          <div className='status-bar-comment'>
+            <Statusbar
+              voteScore={voteScore}
+              onVoteClick={onVoteCommentClick}
+              comments={comments}
+              onSubmitCommentClick={onSubmitCommentClick}
+              id={id}
+              category={category}
+              isPost={false}
+              newComment={id != null}
+              isDetail={false}
+            />
+          </div>
+          <CommentSeparator />
+        </div>}
       </div>
     );
   }

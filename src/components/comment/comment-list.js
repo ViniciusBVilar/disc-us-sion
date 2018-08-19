@@ -16,6 +16,7 @@ class CommentList extends React.Component {
     upVoteCommentAPIDispatch: PropTypes.func.isRequired,
     downVoteCommentAPIDispatch: PropTypes.func.isRequired,
     postComments: PropTypes.array.isRequired,
+    parentDeleted: PropTypes.bool.isRequired,
   };
 
   handleEditCommentClick = (comment, id) => {
@@ -36,6 +37,7 @@ class CommentList extends React.Component {
 
   render() {
     const comments = this.props.postComments;
+    const parentDeleted = this.props.parentDeleted;
 
     return (
       <div>
@@ -44,6 +46,7 @@ class CommentList extends React.Component {
             <CommentComponent
               key={index}
               comment={comment} 
+              parentDeleted={parentDeleted} 
               onEditCommentClick={this.handleEditCommentClick}
               onDeleteCommentClick={this.handleDeleteCommentClick}
               onVoteCommentClick={this.handleVoteCommentClick}

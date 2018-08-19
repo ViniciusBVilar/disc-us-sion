@@ -63,7 +63,7 @@ class PostPage extends React.Component {
                 onVotePostClick={this.handleVotePostClick}
                 onSubmitCommentClick={this.handleSubmitCommentClick} 
               />)}
-            <CommentList commentsIds={commentsIds} />
+            <CommentList commentsIds={commentsIds} parentDeleted={deleted}/>
           </div>}
       </div>
     );

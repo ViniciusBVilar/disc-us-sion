@@ -1,6 +1,9 @@
-const AUTHORIZARION_TOKEN = 'atuhtoken';
+const AUTHORIZARION_TOKEN = 'authtoken';
 
-export const headers = { Authorization: AUTHORIZARION_TOKEN };
+export const headers = { 
+  'Content-Type': 'application/json',
+  'Authorization': AUTHORIZARION_TOKEN
+};
 
 export const configGET = () => {
   return {

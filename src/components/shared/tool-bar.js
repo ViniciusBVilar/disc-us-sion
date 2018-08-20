@@ -40,6 +40,11 @@ class Toolbar extends React.Component {
     this.props.onEditComment(submittedValues, id);
   };
 
+  getFormattedDate = createdAt => {
+    const date = new Date(createdAt).toString(); ;
+    return date.substr(3, 22);
+  }
+
   render() {
     const {
       id,
@@ -54,7 +59,7 @@ class Toolbar extends React.Component {
     return (
       <Flex p={2} align="center">
         <Box px={2} w={3 / 5}>
-          {new Date(createdAt).toString()}
+          {this.getFormattedDate(createdAt)}
         </Box>
         <Box px={2} w={1 / 5}>
           {isPost ? (

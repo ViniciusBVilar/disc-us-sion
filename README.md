@@ -36,14 +36,6 @@ yarn install
 yarn start
 ```
 
-### Coding style tests
-
-To run a es-lint check run:
-
-```
-yarn run lint
-```
-
 ## Built With
 
 * [React](https://www.npmjs.com/package/create-react-app)

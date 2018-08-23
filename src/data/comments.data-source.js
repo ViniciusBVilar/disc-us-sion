@@ -22,7 +22,7 @@ export function getCommentDetails(id = '') {
 //   author: String
 //   parentId: Should match a post id in the database.
 export function createComment(comment) {
-  return fetch(`${BASE_URL}/comment`, configPOST(comment))
+  return fetch(`${BASE_URL}/comments`, configPOST(comment))
     .then(res => res.json())
     .catch(error => console.error(error));
 }

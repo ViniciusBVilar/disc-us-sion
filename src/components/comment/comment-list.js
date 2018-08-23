@@ -7,17 +7,25 @@ import {
 import CommentComponent from './comment.component';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchPostCommentsAPI } from '../../redux/actions/post.actions';
 
 class CommentList extends React.Component {
 
   static propTypes = {
+    fetchPostCommentsAPIDispatch: PropTypes.func.isRequired,
     editCommentAPIDispatch: PropTypes.func.isRequired,
     deleteCommentAPIDispatch: PropTypes.func.isRequired,
     upVoteCommentAPIDispatch: PropTypes.func.isRequired,
     downVoteCommentAPIDispatch: PropTypes.func.isRequired,
-    postComments: PropTypes.array.isRequired,
+    comments: PropTypes.object.isRequired,
     parentDeleted: PropTypes.bool.isRequired,
+    postId: PropTypes.string.isRequired,
   };
+
+  componentDidMount() {
+    debugger;
+    this.props.fetchPostCommentsAPIDispatch(this.props.postId);
+  }
 
   handleEditCommentClick = (comment, id) => {
     const data = {
@@ -36,16 +44,16 @@ class CommentList extends React.Component {
   }
 
   render() {
-    const comments = this.props.postComments;
+    const comments = this.props.comments;
     const parentDeleted = this.props.parentDeleted;
 
     return (
       <div>
         {!comments.error && comments ?
-          comments.map((comment, index) => (
+          Object.keys(comments).map((commentId, index) => (
             <CommentComponent
               key={index}
-              comment={comment} 
+              comment={comments[commentId]} 
               parentDeleted={parentDeleted} 
               onEditCommentClick={this.handleEditCommentClick}
               onDeleteCommentClick={this.handleDeleteCommentClick}
@@ -59,13 +67,14 @@ class CommentList extends React.Component {
   }
 }
 
-function mapStateToProps({ comments }, ownProps) {
-  const postComments = ownProps.commentsIds && ownProps.commentsIds.map(commentId => comments[commentId]);
-  return { postComments };
+function mapStateToProps({ comments }) {
+  debugger;
+  return { comments };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchPostCommentsAPIDispatch: postId => dispatch(fetchPostCommentsAPI(postId)),
     editCommentAPIDispatch: comment => dispatch(editCommentAPI(comment)),
     deleteCommentAPIDispatch: commentId => dispatch(deleteCommentAPI(commentId)),
     upVoteCommentAPIDispatch: commentId => dispatch(upVoteCommentAPI(commentId)),

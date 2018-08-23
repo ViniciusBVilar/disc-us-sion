@@ -10,7 +10,7 @@ import {
   deletePostAPI,
   downVotePostAPI,
   fetchPostsAPI,
-  upVotePostAPI
+  upVotePostAPI,
 } from '../../redux/actions/post.actions';
 import '../../styles/header.css';
 import '../../styles/home.css';
@@ -22,7 +22,6 @@ class PostList extends React.Component {
   static propTypes = {
     category: PropTypes.string.isRequired,
     posts: PropTypes.object.isRequired,
-    comments: PropTypes.object.isRequired,
     error: PropTypes.object,
     fetchPostsAPIDispatch: PropTypes.func.isRequired,
     deletePostAPIDispatch: PropTypes.func.isRequired,
@@ -62,7 +61,7 @@ class PostList extends React.Component {
   };
 
   render() {
-    const { category, comments } = this.props;
+    const { category } = this.props;
     const posts = this.props.posts;
     const filter = this.state ? this.state.filter : '';
     return (
@@ -77,12 +76,6 @@ class PostList extends React.Component {
                   ? posts[key]
                   : null;
 
-              const commentsCount =
-                comments && post
-                  ? Object.keys(comments).filter(
-                    commentId => comments[commentId].parentId === post.id
-                  )
-                  : [];
               return post && !post.deleted ? (
                 <div key={`${post.id}${index}`} className="home-card">
                   <PostComponent
@@ -93,7 +86,7 @@ class PostList extends React.Component {
                     category={post.category}
                     author={post.author}
                     voteScore={post.voteScore}
-                    comments={commentsCount.length}
+                    comments={post.commentCount}
                     createdAt={post.timestamp}
                     deleted={post.deleted}
                     isDetail={false}
@@ -115,8 +108,8 @@ class PostList extends React.Component {
   }
 }
 
-function mapStateToProps({ posts, comments }) {
-  return { posts, comments };
+function mapStateToProps({ posts }) {
+  return { posts };
 }
 
 function mapDispatchToProps(dispatch) {

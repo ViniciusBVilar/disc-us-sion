@@ -10,6 +10,7 @@ import {
 
 export function posts(state = {}, action) {
   const { type, post, postId, posts, error } = action;
+  debugger;
   switch (type) {
   case CREATE_POST:
     return {
@@ -55,8 +56,7 @@ export function posts(state = {}, action) {
       error
     };
   case FETCH_POST:
-    return {...state,
-      ...posts};
+    return { ...posts };
   default:
     return state;
   }

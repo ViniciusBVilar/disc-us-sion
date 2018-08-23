@@ -11,21 +11,26 @@ import {
 import {
   deletePostAPI,
   downVotePostAPI,
-  upVotePostAPI
+  upVotePostAPI,
+  fetchPostDetailsAPI
 } from '../../redux/actions/post.actions';
 import '../../styles/header.css';
 
 class PostPage extends React.Component {
   static propTypes = {
+    fetchPostDetailsAPIDispatch: PropTypes.func.isRequired,
     deletePostAPIDispatch: PropTypes.func.isRequired,
     deleteCommentParentDispatch: PropTypes.func.isRequired,
     upVoteAPIDispatch: PropTypes.func.isRequired,
     downVoteAPIDispatch: PropTypes.func.isRequired,
     createCommentAPIDispatch: PropTypes.func.isRequired,
     post: PropTypes.object.isRequired,
-    commentsIds: PropTypes.array.isRequired,
     params: PropTypes.object.isRequired
   };
+
+  componentDidMount() {
+    this.props.fetchPostDetailsAPIDispatch(this.props.params.match.params.id);
+  }
 
   handleDeletePostClick = id => {
     this.props.deletePostAPIDispatch(id);
@@ -48,62 +53,59 @@ class PostPage extends React.Component {
       body,
       author,
       voteScore,
+      commentCount,
       timestamp,
       deleted,
       error
-    } = this.props.post;
-    const commentsIds = this.props.commentsIds || [];
+    } = this.props.post || {};
     const { id, category } = this.props.params.match.params;
 
     return (
       <div>
         <Header title={'The Bomb'} />
-        {error ? (
-          <h1>{error.message}</h1>
-        ) : (
-          <div className="header-offset">
-            {deleted ? (
-              <div className="status-bar-post">
-                <h1>404 Page no found</h1>
-              </div>
-            ) : (
-              <PostComponent
-                id={id}
-                title={title}
-                text={body}
-                author={author}
-                voteScore={voteScore}
-                comments={commentsIds.length}
-                createdAt={timestamp}
-                category={category}
-                deleted={deleted}
-                isDetail={true}
-                onDeletePostClick={this.handleDeletePostClick}
-                onVotePostClick={this.handleVotePostClick}
-                onSubmitCommentClick={this.handleSubmitCommentClick}
-              />
-            )}
-            <CommentList commentsIds={commentsIds} parentDeleted={deleted} />
-          </div>
-        )}
+        <div className="header-offset">
+          {error ? (
+            <h1>{error.message}</h1>
+          ) : (
+            <div>
+              {deleted ? (
+                <div className="status-bar-post">
+                  <h1>404 Page no found</h1>
+                </div>
+              ) : (
+                <PostComponent
+                  id={id}
+                  title={title}
+                  text={body}
+                  author={author}
+                  voteScore={voteScore}
+                  comments={commentCount}
+                  createdAt={timestamp}
+                  category={category}
+                  deleted={deleted}
+                  isDetail={true}
+                  onDeletePostClick={this.handleDeletePostClick}
+                  onVotePostClick={this.handleVotePostClick}
+                  onSubmitCommentClick={this.handleSubmitCommentClick}
+                />
+              )}
+              <CommentList parentDeleted={deleted} postId={id}/>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
 }
 
-function mapStateToProps({ posts, comments }, ownProps) {
-  const post = posts[ownProps.params.match.params.id]
-    ? posts[ownProps.params.match.params.id]
-    : {};
-  let commentsIds = Object.keys(comments).filter(
-    commentId =>
-      comments[commentId]['parentId'] === ownProps.params.match.params.id
-  );
-  return { post, commentsIds };
+function mapStateToProps({ post }) {
+  debugger;
+  return { post };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchPostDetailsAPIDispatch: postId => dispatch(fetchPostDetailsAPI(postId)),
     createCommentAPIDispatch: comment => dispatch(createCommentAPI(comment)),
     deletePostAPIDispatch: postId => dispatch(deletePostAPI(postId)),
     upVoteAPIDispatch: postId => dispatch(upVotePostAPI(postId)),

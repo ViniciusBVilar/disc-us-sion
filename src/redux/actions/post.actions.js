@@ -1,7 +1,7 @@
 import {
   fetchAllPosts,
   fetchCategoryPosts,
-  fetchPostDetails,
+  getPostDetails,
   fetchPostComments,
   createPost,
   editPost,
@@ -13,6 +13,7 @@ import { mapPosts } from './post-actions.mapper';
 export const POST_ERROR = 'ERROR_POST';
 export const POST_IS_LOADING = 'POST_IS_LOADING';
 export const FETCH_POST = 'FETCH_POST';
+export const FETCH_POST_COMMENTS = 'FETCH_POST_COMMENTS';
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const DELETE_POST = 'DELETE_POST';
@@ -60,29 +61,33 @@ export const fetchCategoryPostsAPI = category => dispatch =>
     .then(posts => dispatch(fetchPostsByCategory(posts)))
     .catch(error => dispatch(postError(error)));
 
-export function fetchDetailsByPost(postId) {
+export function fetchPostDetails(post, postId) {
   return {
     type: FETCH_POST,
+    post,
     postId
   };
 }
 
 export const fetchPostDetailsAPI = postId => dispatch => {
-  fetchPostDetails(postId)
-    .then(() => dispatch(fetchPostDetails(postId)))
+  debugger;
+  getPostDetails(postId)
+    .then(post => dispatch(fetchPostDetails(post, postId)))
     .catch(error => dispatch(postError(error)));
 };
 
-export function fetchCommentsByPost(postId) {
+export function fetchCommentsByPost(comments, postId) {
+  debugger;
   return {
-    type: FETCH_POST,
+    type: FETCH_POST_COMMENTS,
+    comments,
     postId
   };
 }
 
 export const fetchPostCommentsAPI = postId => dispatch =>
   fetchPostComments(postId)
-    .then(() => dispatch(fetchPostComments(postId)))
+    .then(comments => dispatch(fetchCommentsByPost(comments, postId)))
     .catch(error => dispatch(postError(error)));
 
 export function createPostAction(postId, post) {

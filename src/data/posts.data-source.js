@@ -24,7 +24,7 @@ export function fetchAllPosts() {
 //GET /posts/:id
 //  USAGE:
 //    Get the details of a single post
-export function fetchPostDetails(id = '') {
+export function getPostDetails(id = '') {
   return fetch(`${BASE_URL}/posts/${id}`, configGET())
     .then(res => res.json())
     .catch(error => new Error(error));
@@ -33,10 +33,11 @@ export function fetchPostDetails(id = '') {
 //GET /posts/:id/comments
 //  USAGE:
 //    Get all the comments for a single post
-export function fetchPostComments(id = '') {
-  return fetch(`${BASE_URL}/posts/${id}/comments`, configGET())
+export function fetchPostComments(id) {
+  return id ? fetch(`${BASE_URL}/posts/${id}/comments`, configGET())
     .then(res => res.json())
-    .catch(error => console.error(error));
+    .catch(error => console.error(error))
+    : {};
 }
 
 //POST /posts

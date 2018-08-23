@@ -9,6 +9,10 @@ import {
   FETCH_COMMENTS,
 } from '../actions/comments.actions';
 
+import {
+  FETCH_POST_COMMENTS,
+} from '../actions/post.actions';
+
 // const categories =  'react' | 'redux' | 'udacity';
 // id - UUID should be fine, but any unique id will work
 // timestamp - timestamp in whatever format you like, you can use Date.now() if you like
@@ -55,6 +59,7 @@ import {
 
 export function comments(state = {}, action) {
   const { type, comment, commentId, error, comments } = action;
+  debugger;
   switch (type) {
   case CREATE_COMMENT:
     return {
@@ -108,7 +113,9 @@ export function comments(state = {}, action) {
       error
     };
   case FETCH_COMMENTS:
-    return {...comments};
+    return { ...comments };
+  case FETCH_POST_COMMENTS:
+    return { ...comments };
   default:
     return state;
   }
